@@ -1,7 +1,17 @@
 {
-  "name": "kretch",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@jlbelanger/kretch-app",
+  "version": "1.0.0",
+  "description": "Play charades.",
+  "license": "GPL-3.0-only",
+  "author": {
+    "name": "Jenny Belanger",
+    "email": "mail@jennybelanger.com",
+    "url": "https://www.jennybelanger.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jlbelanger/kretch-app.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
