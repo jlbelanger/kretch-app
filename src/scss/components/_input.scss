@@ -1,0 +1,18 @@
+input {
+	background: $indigo-medium;
+	border: 0;
+	border-radius: 0;
+	color: $white;
+	line-height: 1.5;
+	padding: 8px;
+	width: 100%;
+
+	&:focus {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+#code {
+	text-transform: uppercase;
+}

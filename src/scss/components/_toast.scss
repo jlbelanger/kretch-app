@@ -1,0 +1,41 @@
+.toast-container {
+	align-items: flex-end;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	pointer-events: none;
+	position: fixed;
+	right: 0;
+	z-index: 9999;
+}
+
+.toast {
+	align-items: center;
+	animation-fill-mode: forwards;
+	animation-name: slide-in-out;
+	background-color: $indigo-dark;
+	color: $white;
+	display: flex;
+	margin: 8px;
+	max-width: 90vw;
+	padding: 8px;
+	pointer-events: auto;
+}
+
+@keyframes slide-in-out {
+	0% {
+		transform: translateX(200%) translateZ(0);
+	}
+
+	10% {
+		transform: translateX(0%) translateZ(0);
+	}
+
+	90% {
+		transform: translateX(0%) translateZ(0);
+	}
+
+	100% {
+		transform: translateX(200%) translateZ(0);
+	}
+}

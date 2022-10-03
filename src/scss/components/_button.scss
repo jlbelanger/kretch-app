@@ -1,0 +1,33 @@
+button {
+	background-color: $off-white;
+	border: 0;
+	border-radius: 0;
+	color: $indigo;
+	cursor: pointer;
+	line-height: 1.5;
+	max-width: 320px;
+	min-width: 100px;
+	padding: 8px 12px;
+	width: 100%;
+
+	& + button {
+		margin-top: 12px;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $white;
+	}
+}
+
+.button--secondary {
+	background-color: $indigo-light;
+	color: $white;
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $indigo-lighter;
+	}
+}

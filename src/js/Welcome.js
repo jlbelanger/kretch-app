@@ -1,0 +1,137 @@
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
+export default function Welcome({ socket }) {
+	const [name, setName] = useState(window.localStorage.getItem('name') || '');
+	const [code, setCode] = useState('');
+	const [nameError, setNameError] = useState('');
+	const [codeError, setCodeError] = useState('');
+	const [loading, setLoading] = useState(false);
+
+	const onInvalidRoom = () => {
+		setCodeError('This room does not exist.');
+		setLoading(false);
+	};
+
+	const onNoRoom = () => {
+		setCodeError('There are no more rooms available.');
+		setLoading(false);
+	};
+
+	useEffect(() => {
+		socket.on('ERROR_INVALID_ROOM', onInvalidRoom);
+		socket.on('ERROR_NO_ROOM', onNoRoom);
+
+		return () => {
+			socket.off('ERROR_INVALID_ROOM', onInvalidRoom);
+			socket.off('ERROR_NO_ROOM', onNoRoom);
+		};
+	}, [socket]);
+
+	const joinRoom = () => {
+		let isValid = true;
+
+		if (!name) {
+			setNameError('Please enter your name.');
+			isValid = false;
+		} else {
+			setNameError('');
+		}
+
+		if (!code) {
+			setCodeError('Please enter a room code.');
+			isValid = false;
+		} else {
+			setCodeError('');
+		}
+
+		if (!isValid) {
+			return;
+		}
+
+		window.localStorage.setItem('name', name);
+		setLoading(true);
+		socket.emit('JOIN_ROOM', { name, code });
+	};
+
+	const createRoom = () => {
+		let isValid = true;
+
+		if (!name) {
+			setNameError('Please enter your name.');
+			isValid = false;
+		} else {
+			setNameError('');
+		}
+
+		setCodeError('');
+
+		if (!isValid) {
+			return;
+		}
+
+		window.localStorage.setItem('name', name);
+		setLoading(true);
+		socket.emit('CREATE_ROOM', { name });
+	};
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		if (code) {
+			joinRoom();
+		} else {
+			createRoom();
+		}
+	};
+
+	return (
+		<form className="mini" onSubmit={onSubmit}>
+			{loading && <div className="spinner" />}
+
+			<h1>Kretch</h1>
+
+			<div className="field">
+				<label htmlFor="name">Name:</label>
+				<div className={`field__input-wrapper${nameError ? ' field__input-wrapper--invalid' : ''}`}>
+					<input
+						autoFocus="autofocus"
+						id="name"
+						maxLength={16}
+						onChange={(e) => setName(e.target.value)}
+						type="text"
+						value={name}
+					/>
+				</div>
+			</div>
+
+			<div className="field-error">{nameError}</div>
+
+			<div className="field">
+				<label htmlFor="code">Room:</label>
+				<div className={`field__input-wrapper${codeError ? ' field__input-wrapper--invalid' : ''}`}>
+					<input
+						id="code"
+						maxLength={4}
+						onChange={(e) => setCode(e.target.value)}
+						type="text"
+						value={code}
+					/>
+					<button onClick={joinRoom} type="button">Join</button>
+				</div>
+			</div>
+
+			<div className="field-error">{codeError}</div>
+
+			<p className="flex">
+				<label>or</label>
+				<button onClick={createRoom} type="button">Create new room</button>
+			</p>
+
+			<button className="hide" type="submit" />
+		</form>
+	);
+}
+
+Welcome.propTypes = {
+	socket: PropTypes.object.isRequired,
+};

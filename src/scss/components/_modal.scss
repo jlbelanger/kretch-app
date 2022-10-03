@@ -1,0 +1,17 @@
+#modal {
+	background: $indigo;
+	padding: 24px;
+	position: relative;
+}
+
+#modal-close {
+	background-color: transparent;
+	background-image: url('../../svg/x.svg');
+	background-size: 40%;
+	height: 44px;
+	margin: 12px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 44px;
+}

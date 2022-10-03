@@ -1,0 +1,21 @@
+.field {
+	align-items: center;
+	display: flex;
+	margin-top: 20px;
+}
+
+.field__input-wrapper {
+	display: flex;
+	flex: 1 1 auto;
+}
+
+.field__input-wrapper--invalid {
+	box-shadow: 0 0 0 4px rgba($red, .5);
+}
+
+.field-error {
+	color: $red;
+	font-size: 16px;
+	margin-top: 8px;
+	text-align: right;
+}

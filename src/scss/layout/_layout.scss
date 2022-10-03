@@ -1,0 +1,54 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: $indigo;
+	color: $white;
+	font-family: raleway, sans-serif;
+	font-size: 18px;
+	margin: 0;
+	padding: 0;
+}
+
+#main {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	min-height: 100vh;
+	padding: $header-height 12px;
+	text-align: center;
+	width: 100%;
+
+	&.modal-open {
+		background: $indigo-dark;
+	}
+}
+
+#header {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	left: 0;
+	padding: 8px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+}
+
+#room-code {
+	color: $indigo-light;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#settings-button {
+	background-color: $indigo;
+	background-image: url('../../svg/cog.svg');
+	background-size: 60%;
+	height: $header-height;
+	margin: 0;
+	width: $header-height;
+}

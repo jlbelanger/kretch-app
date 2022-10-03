@@ -1,0 +1,74 @@
+.category-person {
+	background-color: $cyan;
+	background-image: url('../../svg/person.svg');
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $cyan-light;
+	}
+
+	&::after {
+		content: 'Person';
+	}
+}
+
+.category-meme {
+	background-color: $teal;
+	background-image: url('../../svg/meme.svg');
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $teal-light;
+	}
+
+	&::after {
+		content: 'Meme';
+	}
+}
+
+.category-movie {
+	background-color: $red;
+	background-image: url('../../svg/movie.svg');
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $red-light;
+	}
+
+	&::after {
+		content: 'Movie';
+	}
+}
+
+.category-tv-show {
+	background-color: $green;
+	background-image: url('../../svg/tv-show.svg');
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $green-light;
+	}
+
+	&::after {
+		content: 'TV Show';
+	}
+}
+
+.category-song {
+	background-color: $purple;
+	background-image: url('../../svg/song.svg');
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $purple-light;
+	}
+
+	&::after {
+		content: 'Song';
+	}
+}
