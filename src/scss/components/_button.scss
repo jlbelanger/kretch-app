@@ -4,7 +4,10 @@ button {
 	border-radius: 0;
 	color: $indigo;
 	cursor: pointer;
+	display: block;
 	line-height: 1.5;
+	margin-left: auto;
+	margin-right: auto;
 	max-width: 320px;
 	min-width: 100px;
 	padding: 8px 12px;
@@ -19,6 +22,18 @@ button {
 	&:focus {
 		background-color: $white;
 	}
+
+	&[disabled] {
+		background-color: $indigo-gray;
+		color: $gray;
+		cursor: not-allowed;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background-color: $indigo-gray;
+		}
+	}
 }
 
 .button--secondary {
@@ -30,4 +45,16 @@ button {
 	&:focus {
 		background-color: $indigo-lighter;
 	}
+}
+
+#back {
+	background-color: transparent;
+	background-image: url('../../svg/chevron.svg');
+	background-size: 40%;
+	height: 44px;
+	left: 0;
+	margin: -6px 0 0;
+	position: absolute;
+	top: 0;
+	width: 44px;
 }

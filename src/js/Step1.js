@@ -1,5 +1,6 @@
 // Select category
 import { capitalize, getActivePlayer, isActivePlayer } from './Helpers';
+import GameOver from './GameOver';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -21,14 +22,10 @@ export default function Step1({
 
 	if (categoryList.length <= 0) {
 		return (
-			<section>
-				<h1>There are no more questions</h1>
-				<p>...congratulations?</p>
-			</section>
+			<GameOver />
 		);
 	}
 
-	const activePlayer = getActivePlayer(currentRoom);
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 
 	const onClickCategory = (e) => {
@@ -68,7 +65,7 @@ export default function Step1({
 	return (
 		<section>
 			<p className="wait">
-				{`Waiting for ${activePlayer.name} to pick a category.`}
+				{`Waiting for ${getActivePlayer(currentRoom).name} to pick a category.`}
 			</p>
 		</section>
 	);

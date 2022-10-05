@@ -9,8 +9,6 @@ export default function Settings({ addToast, categories, currentPlayer, currentR
 	const [maxYear, setMaxYear] = useState(settings.maxYear);
 	const [minYear, setMinYear] = useState(settings.minYear);
 
-	// TODO: Force choosing at least one category and method, setting all min/max years, validate min is before max.
-
 	const onChangeCategory = (e) => {
 		if (e.target.checked) {
 			setCategories([...playerCategories, e.target.value]);
@@ -61,12 +59,18 @@ export default function Settings({ addToast, categories, currentPlayer, currentR
 		setIsSettingsVisible(false);
 	};
 
+	const onErrorSaveSettings = () => {
+		setIsDisabled(false);
+		setLoading(false);
+		addToast('Error saving settings.');
+	};
+
 	useEffect(() => {
-		socket.on('ERROR_SAVE_SETTINGS', () => {
-			setIsDisabled(false);
-			setLoading(false);
-			addToast('Error saving settings.');
-		});
+		socket.on('ERROR_SAVE_SETTINGS', onErrorSaveSettings);
+
+		return () => {
+			socket.off('ERROR_SAVE_SETTINGS', onErrorSaveSettings);
+		};
 	}, []);
 
 	return (

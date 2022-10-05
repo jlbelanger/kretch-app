@@ -12,16 +12,22 @@ export default function Step2({
 }) {
 	const [numSkips, setNumSkips] = useState(0);
 	const [isSkipDisabled, setIsSkipDisabled] = useState(false);
-	const activePlayer = getActivePlayer(currentRoom);
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 
+	const onRetrievedClue = () => {
+		// Disable the skip button temporarily to prevent accidental double clicks.
+		setTimeout(() => {
+			setIsSkipDisabled(false);
+		}, 200);
+	};
+
 	useEffect(() => {
-		socket.on('RETRIEVED_CLUE', () => {
-			setTimeout(() => {
-				setIsSkipDisabled(false);
-			}, 200);
-		});
-	});
+		socket.on('RETRIEVED_CLUE', onRetrievedClue);
+
+		return () => {
+			socket.off('RETRIEVED_CLUE', onRetrievedClue);
+		};
+	}, []);
 
 	const onNext = () => {
 		socket.emit('PICK_CLUE', { code: currentRoom.code });
@@ -37,7 +43,11 @@ export default function Step2({
 		setNumSkips(numSkips + 1);
 	};
 
-	if (isActive && currentRoom.currentClue) {
+	if (isActive) {
+		if (!currentRoom.currentClue) {
+			return null;
+		}
+
 		const method = currentRoom.currentMethod;
 		const clue = currentRoom.currentClue;
 		const category = currentRoom.currentCategory;
@@ -78,7 +88,7 @@ export default function Step2({
 	return (
 		<section>
 			<p className="wait">
-				{`Waiting for ${activePlayer.name} to get a clue.`}
+				{`Waiting for ${getActivePlayer(currentRoom).name} to get a clue.`}
 			</p>
 		</section>
 	);

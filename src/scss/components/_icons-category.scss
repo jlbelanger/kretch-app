@@ -1,3 +1,8 @@
+#category-list {
+	margin-left: -12px;
+	margin-right: -12px;
+}
+
 .category-person {
 	background-color: $cyan;
 	background-image: url('../../svg/person.svg');
@@ -7,10 +12,10 @@
 	&:focus {
 		background-color: $cyan-light;
 	}
+}
 
-	&::after {
-		content: 'Person';
-	}
+button.category-person::after {
+	content: 'Person';
 }
 
 .category-meme {
@@ -22,10 +27,10 @@
 	&:focus {
 		background-color: $teal-light;
 	}
+}
 
-	&::after {
-		content: 'Meme';
-	}
+button.category-meme::after {
+	content: 'Meme';
 }
 
 .category-movie {
@@ -37,10 +42,10 @@
 	&:focus {
 		background-color: $red-light;
 	}
+}
 
-	&::after {
-		content: 'Movie';
-	}
+button.category-movie::after {
+	content: 'Movie';
 }
 
 .category-tv-show {
@@ -52,10 +57,10 @@
 	&:focus {
 		background-color: $green-light;
 	}
+}
 
-	&::after {
-		content: 'TV Show';
-	}
+button.category-tv-show::after {
+	content: 'TV Show';
 }
 
 .category-song {
@@ -67,8 +72,8 @@
 	&:focus {
 		background-color: $purple-light;
 	}
+}
 
-	&::after {
-		content: 'Song';
-	}
+button.category-song::after {
+	content: 'Song';
 }

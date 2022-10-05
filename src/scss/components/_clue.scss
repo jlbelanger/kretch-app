@@ -1,0 +1,6 @@
+#clue {
+	align-items: center;
+	display: flex;
+	height: #{($highlight-font-size * $highlight-line-height) * 3};
+	justify-content: center;
+}
