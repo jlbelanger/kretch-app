@@ -10,10 +10,10 @@ export default function Step2({
 	socket,
 }) {
 	const [loading, setLoading] = useState(false);
-	const [loadingClue, setLoadingClue] = useState(true);
+	const [loadingClue, setLoadingClue] = useState(!currentRoom.currentClue);
 	const [numSkips, setNumSkips] = useState(0);
-	const [isOkDisabled, setIsOkDisabled] = useState(true);
-	const [isSkipDisabled, setIsSkipDisabled] = useState(true);
+	const [isOkDisabled, setIsOkDisabled] = useState(loadingClue);
+	const [isSkipDisabled, setIsSkipDisabled] = useState(loadingClue);
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 
 	const onRetrievedClue = () => {
