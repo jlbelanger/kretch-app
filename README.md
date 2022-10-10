@@ -21,7 +21,6 @@ cd kretch-app
 # Configure the environment settings
 cp .env.example .env
 cp .env.example .env.production
-cp cypress.env.example.json cypress.env.json
 
 # Install dependencies
 yarn install
