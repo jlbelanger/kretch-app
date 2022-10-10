@@ -46,6 +46,19 @@ export default function Step3({
 		return `${minutes}:${pad(seconds, 2, '0')}`;
 	};
 
+	const formatTimeAria = (total) => {
+		const time = formatTime(total).split(':');
+		const minutes = parseInt(time[0], 10);
+		const seconds = Math.ceil(parseInt(time[1], 10)/ 10) * 10;
+		if (minutes === 0) {
+			return `${seconds} second${seconds === 1 ? '' : 's'}`;
+		}
+		if (seconds === 0) {
+			return `${minutes} minute${minutes === 1 ? '' : 's'}`;
+		}
+		return `${minutes} minute${minutes === 1 ? '' : 's'}, ${seconds} second${seconds === 1 ? '' : 's'}`;
+	};
+
 	if (loading) {
 		return (
 			<div className="spinner" />
@@ -61,9 +74,9 @@ export default function Step3({
 
 			{isActive ? (
 				<>
-					<p>
+					<h1 className="text">
 						{`${currentPlayer.name}, ${currentRoom.currentMethod.name} the ${currentRoom.currentCategory.name}:`}
-					</p>
+					</h1>
 
 					<p className="highlight">{currentRoom.currentClue.name}</p>
 				</>
@@ -73,8 +86,8 @@ export default function Step3({
 				</p>
 			)}
 
-			<p id="timer">
-				{formatTime(remainingSeconds)}
+			<p aria-label={`Time remaining: ${formatTimeAria(remainingSeconds)}`} aria-live="polite" id="timer">
+				<span aria-hidden="true">{formatTime(remainingSeconds)}</span>
 			</p>
 
 			{isActive && (

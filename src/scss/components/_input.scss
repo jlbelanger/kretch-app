@@ -17,3 +17,17 @@ input {
 #code {
 	text-transform: uppercase;
 }
+
+fieldset {
+	border-color: $indigo-light;
+	border-style: solid;
+	border-width: 1px;
+}
+
+legend {
+	font-size: 20px;
+	font-weight: normal;
+	margin: 0 auto;
+	padding: 0 4px;
+	text-align: center;
+}

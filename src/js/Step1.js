@@ -62,9 +62,7 @@ export default function Step1({
 							key={category.id}
 							onClick={onClickCategory}
 							type="button"
-						>
-							{capitalize(category.name)}
-						</button>
+						/>
 					))}
 				</p>
 

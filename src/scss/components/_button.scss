@@ -43,7 +43,7 @@ button {
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: $indigo-lighter;
+		background-color: scale-color($indigo-light, $lightness: 5%);
 	}
 }
 
@@ -51,6 +51,7 @@ button {
 	background-color: transparent;
 	background-image: url('../../svg/chevron.svg');
 	background-size: 40%;
+	color: $white;
 	height: 44px;
 	left: 0;
 	margin: -6px 0 0;

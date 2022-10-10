@@ -76,11 +76,9 @@ export default function Step2({
 					<div className={categoryClassName} />
 				</div>
 
-				<p>
-					{`${category.pre[method.slug]} the ${category.name}:`}
-				</p>
+				<h1 aria-live="polite" className="text">{`${category.pre[method.slug]} the ${category.name}:`}</h1>
 
-				<p className="highlight" id="clue">{loadingClue ? '...' : clue.name}</p>
+				<p aria-live="polite" className="highlight" id="clue">{loadingClue ? '...' : clue.name}</p>
 
 				{clue.img && !loadingClue ? (
 					<p>
@@ -91,8 +89,7 @@ export default function Step2({
 				<p>
 					<button disabled={isOkDisabled} onClick={onNext} type="button">Okay, let&rsquo;s do this</button>
 					<button className="button--secondary" disabled={isSkipDisabled || numSkipsRemaining <= 0} onClick={onSkip} type="button">
-						Skip
-						{numSkipsRemaining <= 3 ? ` (${numSkipsRemaining} remaining)` : ''}
+						{numSkipsRemaining <= 3 ? `Skip (${numSkipsRemaining} remaining)` : 'Skip'}
 					</button>
 				</p>
 			</section>

@@ -182,7 +182,7 @@ export default function App() {
 
 	if (!socket || !isConnected) {
 		return (
-			<div className="spinner" />
+			<div aria-label="Connecting..." className="spinner" />
 		);
 	}
 
@@ -235,7 +235,7 @@ export default function App() {
 		screenComponent = (
 			<>
 				<header id="header">
-					<div id="room-code">{currentRoom.code}</div>
+					<div aria-label="Room code" id="room-code">{currentRoom.code}</div>
 					<button className="icon" id="settings-button" onClick={() => { setIsSettingsVisible(true); }} type="button">Settings</button>
 				</header>
 				<Component
@@ -251,7 +251,7 @@ export default function App() {
 	}
 
 	return (
-		<main id="main">
+		<main aria-live="polite" id="main">
 			{screenComponent}
 			<div className="toast-container">
 				{Object.keys(toasts).map((id) => (

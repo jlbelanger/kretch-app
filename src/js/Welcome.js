@@ -104,7 +104,7 @@ export default function Welcome({ socket }) {
 				</div>
 			</div>
 
-			<div className="field-error">{nameError}</div>
+			<div aria-live="polite" className="field-error">{nameError}</div>
 
 			<div className="field">
 				<label htmlFor="code">Room:</label>
@@ -121,14 +121,14 @@ export default function Welcome({ socket }) {
 				</div>
 			</div>
 
-			<div className="field-error">{codeError}</div>
+			<div aria-live="polite" className="field-error">{codeError}</div>
 
 			<p className="flex">
 				<label>or</label>
 				<button onClick={createRoom} type="button">Create new room</button>
 			</p>
 
-			<button className="hide" type="submit" />
+			<button aria-hidden className="hide" type="submit" />
 		</form>
 	);
 }

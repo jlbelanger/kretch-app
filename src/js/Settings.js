@@ -135,114 +135,132 @@ export default function Settings({
 
 			<h1>Settings</h1>
 
-			<button className="icon" id="modal-close" onClick={onCancel} type="button">Close</button>
+			<button aria-label="Close settings" className="icon" id="modal-close" onClick={onCancel} type="button">
+				<span aria-hidden="true">Close</span>
+			</button>
 
-			<h2>Random Categories</h2>
+			<fieldset>
+				<legend>Random Categories</legend>
 
-			<ul className="checkbox-list">
-				{categories.map((category) => {
-					const checked = playerCategories.includes(category.slug);
-					return (
-						<li className="checkbox-list__item" key={category.id}>
-							<label className="checkbox-list__label">
-								<input
-									checked={checked}
-									name="categories[]"
-									onChange={onChangeCategory}
-									type="checkbox"
-									value={category.slug}
-								/>
-								<span>{category.plural}</span>
-							</label>
-						</li>
-					);
-				})}
-			</ul>
+				<ul className="checkbox-list">
+					{categories.map((category) => {
+						const checked = playerCategories.includes(category.slug);
+						return (
+							<li className="checkbox-list__item" key={category.id}>
+								<label className="checkbox-list__label">
+									<input
+										checked={checked}
+										name="categories[]"
+										onChange={onChangeCategory}
+										type="checkbox"
+										value={category.slug}
+									/>
+									<span>{category.plural}</span>
+								</label>
+							</li>
+						);
+					})}
+				</ul>
+			</fieldset>
 
-			<p className="field-error">{categoriesError}</p>
+			<p aria-live="polite" className="field-error">{categoriesError}</p>
 
-			<h2>Actions</h2>
+			<fieldset>
+				<legend>Actions</legend>
 
-			<ul className="checkbox-list">
-				{methods.map((method) => {
-					const checked = playerMethods.includes(method.slug);
-					return (
-						<li className="checkbox-list__item" key={method.id}>
-							<label className="checkbox-list__label">
-								<input
-									checked={checked}
-									name="methods[]"
-									onChange={onChangeMethod}
-									type="checkbox"
-									value={method.slug}
-								/>
-								<span>{method.name}</span>
-							</label>
-						</li>
-					);
-				})}
-			</ul>
+				<ul className="checkbox-list">
+					{methods.map((method) => {
+						const checked = playerMethods.includes(method.slug);
+						return (
+							<li className="checkbox-list__item" key={method.id}>
+								<label className="checkbox-list__label">
+									<input
+										checked={checked}
+										name="methods[]"
+										onChange={onChangeMethod}
+										type="checkbox"
+										value={method.slug}
+									/>
+									<span>{method.name}</span>
+								</label>
+							</li>
+						);
+					})}
+				</ul>
+			</fieldset>
 
-			<p className="field-error">{actionsError}</p>
+			<p aria-live="polite" className="field-error">{actionsError}</p>
 
-			<table>
-				<thead>
-					<tr>
-						<th />
-						<th scope="col">From</th>
-						<th scope="col">To</th>
-					</tr>
-				</thead>
-				<tbody>
-					{categories.filter((category) => (category.minYear > 0)).map((category) => (
-						<React.Fragment key={category.id}>
-							<tr>
-								<th>
-									<label className="label--inline" htmlFor={`min-year-${category.slug}`}>
-										{category.plural}
-									</label>
-								</th>
-								<td>
-									<div className={yearsFieldsWithErrors.includes(`${category.slug}.min`) ? 'field__input-wrapper--invalid' : ''}>
-										<input
-											data-category={category.slug}
-											id={`min-year-${category.slug}`}
-											inputMode="numeric"
-											maxLength={4}
-											onChange={onChangeMinYear}
-											size={5}
-											type="text"
-											value={minYear[category.slug]}
-										/>
-									</div>
-								</td>
-								<td>
-									<div className={yearsFieldsWithErrors.includes(`${category.slug}.max`) ? 'field__input-wrapper--invalid' : ''}>
-										<input
-											data-category={category.slug}
-											id={`max-year-${category.slug}`}
-											inputMode="numeric"
-											maxLength={4}
-											onChange={onChangeMaxYear}
-											size={5}
-											type="text"
-											value={maxYear[category.slug]}
-										/>
-									</div>
-								</td>
-							</tr>
-							{yearsErrors[category.slug] && (
+			<fieldset>
+				<legend>Year Ranges</legend>
+
+				<table>
+					<thead>
+						<tr aria-hidden>
+							<th />
+							<th scope="col">From</th>
+							<th scope="col">To</th>
+						</tr>
+					</thead>
+					<tbody>
+						{categories.filter((category) => (category.minYear > 0)).map((category) => (
+							<React.Fragment key={category.id}>
 								<tr>
-									<td className="field-error" colSpan={3}>{yearsErrors[category.slug]}</td>
+									<th aria-hidden>
+										<label className="label--inline" htmlFor={`min-year-${category.slug}`}>
+											{category.plural}
+										</label>
+									</th>
+									<td>
+										<div
+											aria-label={`${category.plural} minimum year`}
+											className={yearsFieldsWithErrors.includes(`${category.slug}.min`) ? 'field__input-wrapper--invalid' : ''}
+										>
+											<input
+												data-category={category.slug}
+												id={`min-year-${category.slug}`}
+												inputMode="numeric"
+												maxLength={4}
+												onChange={onChangeMinYear}
+												size={5}
+												type="text"
+												value={minYear[category.slug]}
+											/>
+										</div>
+									</td>
+									<td>
+										<div
+											aria-label={`${category.plural} maximum year`}
+											className={yearsFieldsWithErrors.includes(`${category.slug}.max`) ? 'field__input-wrapper--invalid' : ''}
+										>
+											<input
+												data-category={category.slug}
+												id={`max-year-${category.slug}`}
+												inputMode="numeric"
+												maxLength={4}
+												onChange={onChangeMaxYear}
+												size={5}
+												type="text"
+												value={maxYear[category.slug]}
+											/>
+										</div>
+									</td>
 								</tr>
-							)}
-						</React.Fragment>
-					))}
-				</tbody>
-			</table>
+								{yearsErrors[category.slug] && (
+									<tr>
+										<td aria-live="polite" className="field-error" colSpan={3}>{yearsErrors[category.slug]}</td>
+									</tr>
+								)}
+							</React.Fragment>
+						))}
+					</tbody>
+				</table>
+			</fieldset>
 
 			<p>
-				<button disabled={isDisabled} type="submit">Save</button>
+				<button aria-label="Save settings" disabled={isDisabled} type="submit">
+					<span aria-hidden="true">Save</span>
+				</button>
 			</p>
 		</form>
 	);

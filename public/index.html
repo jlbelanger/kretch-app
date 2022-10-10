@@ -30,6 +30,20 @@
 			background: #283593;
 		}
 
+		noscript {
+			align-items: center;
+			bottom: 0;
+			color: #fff;
+			display: flex;
+			font-family: sans-serif;
+			justify-content: center;
+			left: 0;
+			margin-top: 100px;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
 		.spinner {
 			align-content: center;
 			align-items: center;
@@ -72,7 +86,7 @@
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
 		<div id="root">
-			<div class="spinner"></div>
+			<div aria-label="Loading..." class="spinner"></div>
 		</div>
 	</body>
 </html>

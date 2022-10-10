@@ -59,13 +59,9 @@ export default function Step4({
 
 	return (
 		<section>
-			<p>
-				{`${comment} The answer was:`}
-			</p>
+			<h1 className="text">{`${comment} The answer was:`}</h1>
 
-			<p className="highlight">
-				{currentClue.name}
-			</p>
+			<p className="highlight">{currentClue.name}</p>
 
 			{currentClue.img ? (
 				<p>

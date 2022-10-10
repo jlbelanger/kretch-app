@@ -62,13 +62,15 @@ export default function Room({
 
 			<h1>{`Room: ${currentRoom.code}`}</h1>
 
-			{currentRoom.players.map((player) => (
-				<p className="player" key={player.id}>{player.name}</p>
-			))}
+			<ul aria-label="Players" id="players">
+				{currentRoom.players.map((player) => (
+					<li className="player" key={player.id}>{player.name}</li>
+				))}
+			</ul>
 
 			{isActive ? (
 				<>
-					<div className="flex" style={{ justifyContent: 'space-between' }}>
+					<div aria-label="Room settings" className="flex" style={{ justifyContent: 'space-between' }}>
 						<div className="field">
 							<label htmlFor="max-skips">Skips:</label>
 							<div className={`field__input-wrapper${maxSkipsError ? ' field__input-wrapper--invalid' : ''}`}>
@@ -99,8 +101,8 @@ export default function Room({
 					</div>
 
 					<div className="flex" style={{ justifyContent: 'space-between' }}>
-						<span className="field-error" style={{ textAlign: 'left' }}>{maxSkipsError}</span>
-						<span className="field-error" style={{ textAlign: 'right' }}>{maxMinutesError}</span>
+						<span aria-live="polite" className="field-error" style={{ textAlign: 'left' }}>{maxSkipsError}</span>
+						<span aria-live="polite" className="field-error" style={{ textAlign: 'right' }}>{maxMinutesError}</span>
 					</div>
 				</>
 			) : (

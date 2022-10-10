@@ -42,7 +42,7 @@ body {
 }
 
 #room-code {
-	color: $indigo-light;
+	color: $indigo-lighter;
 	font-size: 28px;
 	font-weight: bold;
 }
@@ -51,6 +51,7 @@ body {
 	background-color: $indigo;
 	background-image: url('../../svg/cog.svg');
 	background-size: 60%;
+	color: $white;
 	height: $header-height;
 	margin: 0;
 	width: $header-height;

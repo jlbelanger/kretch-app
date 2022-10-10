@@ -28,8 +28,24 @@ input[type='checkbox'] {
 	&:checked {
 		background: $indigo-light;
 
+		&:hover,
+		&:active,
+		&:focus {
+			background: $indigo-lighter;
+		}
+
 		& + span {
 			color: $white;
+		}
+	}
+
+	&:not(:checked) {
+		&:hover,
+		&:active,
+		&:focus {
+			& + span {
+				color: $indigo-lighter;
+			}
 		}
 	}
 }
