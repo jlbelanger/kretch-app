@@ -1,5 +1,5 @@
 // Select category
-import { capitalize, getActivePlayer, isActivePlayer } from './Helpers';
+import { getActivePlayer, isActivePlayer } from './Helpers';
 import React, { useState } from 'react';
 import GameOver from './GameOver';
 import PropTypes from 'prop-types';

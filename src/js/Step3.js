@@ -49,7 +49,7 @@ export default function Step3({
 	const formatTimeAria = (total) => {
 		const time = formatTime(total).split(':');
 		const minutes = parseInt(time[0], 10);
-		const seconds = Math.ceil(parseInt(time[1], 10)/ 10) * 10;
+		const seconds = Math.ceil(parseInt(time[1], 10) / 10) * 10;
 		if (minutes === 0) {
 			return `${seconds} second${seconds === 1 ? '' : 's'}`;
 		}
