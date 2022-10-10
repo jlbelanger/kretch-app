@@ -7,16 +7,21 @@ export default function Step2({
 	currentCategorySlug,
 	currentPlayer,
 	currentRoom,
-	retrieveClue,
 	socket,
 }) {
+	const [loading, setLoading] = useState(false);
+	const [loadingClue, setLoadingClue] = useState(true);
 	const [numSkips, setNumSkips] = useState(0);
-	const [isSkipDisabled, setIsSkipDisabled] = useState(false);
+	const [isOkDisabled, setIsOkDisabled] = useState(true);
+	const [isSkipDisabled, setIsSkipDisabled] = useState(true);
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 
 	const onRetrievedClue = () => {
-		// Disable the skip button temporarily to prevent accidental double clicks.
+		setLoadingClue(false);
+
+		// Disable the buttons temporarily to prevent accidental double clicks.
 		setTimeout(() => {
+			setIsOkDisabled(false);
 			setIsSkipDisabled(false);
 		}, 200);
 	};
@@ -30,7 +35,8 @@ export default function Step2({
 	}, []);
 
 	const onNext = () => {
-		socket.emit('PICK_CLUE', { code: currentRoom.code });
+		setLoading(true);
+		socket.emit('PICK_CLUE', { roomId: currentRoom.id });
 	};
 
 	const onSkip = () => {
@@ -38,10 +44,18 @@ export default function Step2({
 			return;
 		}
 
+		setLoadingClue(true);
+		setIsOkDisabled(true);
 		setIsSkipDisabled(true);
-		retrieveClue(currentCategorySlug);
 		setNumSkips(numSkips + 1);
+		socket.emit('RETRIEVE_CLUE', { roomId: currentRoom.id, categorySlug: currentCategorySlug });
 	};
+
+	if (loading) {
+		return (
+			<div className="spinner" />
+		);
+	}
 
 	if (isActive) {
 		if (!currentRoom.currentClue) {
@@ -66,16 +80,16 @@ export default function Step2({
 					{`${category.pre[method.slug]} the ${category.name}:`}
 				</p>
 
-				<p className="highlight" id="clue">{clue.name}</p>
+				<p className="highlight" id="clue">{loadingClue ? '...' : clue.name}</p>
 
-				{clue.img ? (
+				{clue.img && !loadingClue ? (
 					<p>
 						<img alt="" height={clue.height} src={clue.img} width={clue.width} />
 					</p>
 				) : null}
 
 				<p>
-					<button onClick={onNext} type="button">Okay, let&rsquo;s do this</button>
+					<button disabled={isOkDisabled} onClick={onNext} type="button">Okay, let&rsquo;s do this</button>
 					<button className="button--secondary" disabled={isSkipDisabled || numSkipsRemaining <= 0} onClick={onSkip} type="button">
 						Skip
 						{numSkipsRemaining <= 3 ? ` (${numSkipsRemaining} remaining)` : ''}
@@ -98,7 +112,6 @@ Step2.propTypes = {
 	currentCategorySlug: PropTypes.string,
 	currentPlayer: PropTypes.object.isRequired,
 	currentRoom: PropTypes.object.isRequired,
-	retrieveClue: PropTypes.func.isRequired,
 	socket: PropTypes.object.isRequired,
 };
 

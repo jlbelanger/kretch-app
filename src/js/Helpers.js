@@ -7,7 +7,7 @@ export const getActivePlayer = (currentRoom) => (
 );
 
 export const isPlayer = (player, currentPlayer) => (
-	player.id === currentPlayer.id
+	player && currentPlayer && player.id === currentPlayer.id
 );
 
 export const isActivePlayer = (currentRoom, currentPlayer) => (

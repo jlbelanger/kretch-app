@@ -26,7 +26,7 @@ export default function Welcome({ socket }) {
 			socket.off('ERROR_INVALID_ROOM', onInvalidRoom);
 			socket.off('ERROR_NO_ROOM', onNoRoom);
 		};
-	}, [socket]);
+	}, []);
 
 	const joinRoom = () => {
 		let isValid = true;
@@ -97,7 +97,7 @@ export default function Welcome({ socket }) {
 						autoFocus="autofocus"
 						id="name"
 						maxLength={16}
-						onChange={(e) => setName(e.target.value)}
+						onChange={(e) => setName(e.target.value.trim())}
 						type="text"
 						value={name}
 					/>
@@ -110,9 +110,10 @@ export default function Welcome({ socket }) {
 				<label htmlFor="code">Room:</label>
 				<div className={`field__input-wrapper${codeError ? ' field__input-wrapper--invalid' : ''}`}>
 					<input
+						autoComplete="off"
 						id="code"
 						maxLength={4}
-						onChange={(e) => setCode(e.target.value)}
+						onChange={(e) => setCode(e.target.value.trim())}
 						type="text"
 						value={code}
 					/>

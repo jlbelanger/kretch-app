@@ -8,6 +8,7 @@ input {
 	width: 100%;
 
 	&:focus {
+		background-color: scale-color($indigo-medium, $lightness: 10%);
 		position: relative;
 		z-index: 1;
 	}

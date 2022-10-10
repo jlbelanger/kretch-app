@@ -1,10 +1,8 @@
 input[type='checkbox'] {
 	appearance: none;
 	background: none;
-	border-color: $indigo-dark;
-	border-radius: 1000px;
-	border-style: solid;
-	border-width: 1px;
+	border-radius: 100px;
+	border-width: 0;
 	bottom: 0;
 	cursor: pointer;
 	height: 100%;
@@ -22,17 +20,16 @@ input[type='checkbox'] {
 
 	& + span {
 		color: $indigo-light;
+		pointer-events: none;
+		position: relative;
+		z-index: 1;
 	}
 
 	&:checked {
-		border-color: $indigo-light;
+		background: $indigo-light;
 
 		& + span {
 			color: $white;
-		}
-
-		&:focus {
-			border-color: transparent;
 		}
 	}
 }

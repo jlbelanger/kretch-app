@@ -1,16 +1,18 @@
 // Select category
 import { capitalize, getActivePlayer, isActivePlayer } from './Helpers';
+import React, { useState } from 'react';
 import GameOver from './GameOver';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export default function Step1({
 	categories,
 	currentPlayer,
 	currentRoom,
-	retrieveClue,
+	setScreen,
 	socket,
 }) {
+	const [loading, setLoading] = useState(false);
+
 	if (!categories) {
 		// Categories have not loaded yet.
 		return null;
@@ -22,17 +24,28 @@ export default function Step1({
 
 	if (categoryList.length <= 0) {
 		return (
-			<GameOver />
+			<GameOver
+				currentPlayer={currentPlayer}
+				currentRoom={currentRoom}
+				setScreen={setScreen}
+				socket={socket}
+			/>
 		);
 	}
 
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 
 	const onClickCategory = (e) => {
+		setLoading(true);
 		const categorySlug = e.target.getAttribute('data-category');
-		socket.emit('PICK_CATEGORY', { code: currentRoom.code, categorySlug });
-		retrieveClue(categorySlug);
+		socket.emit('PICK_CATEGORY', { roomId: currentRoom.id, categorySlug });
 	};
+
+	if (loading) {
+		return (
+			<div className="spinner" />
+		);
+	}
 
 	if (isActive) {
 		return (
@@ -75,6 +88,6 @@ Step1.propTypes = {
 	categories: PropTypes.array.isRequired,
 	currentPlayer: PropTypes.object.isRequired,
 	currentRoom: PropTypes.object.isRequired,
-	retrieveClue: PropTypes.func.isRequired,
+	setScreen: PropTypes.func.isRequired,
 	socket: PropTypes.object.isRequired,
 };

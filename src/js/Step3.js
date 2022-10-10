@@ -8,19 +8,19 @@ export default function Step3({
 	currentRoom,
 	socket,
 }) {
-	const [deadline] = useState(new Date().getTime() + (currentRoom.settings.maxMinutes * 60000));
-	const [remainingSeconds, setRemainingSeconds] = useState(currentRoom.settings.maxMinutes * 60);
+	const now = () => new Date().getTime();
+	const [loading, setLoading] = useState(false);
+	const [deadline] = useState(currentRoom.deadline);
+	const calculateRemainingSeconds = () => Math.round((deadline - now()) / 1000);
+	const [remainingSeconds, setRemainingSeconds] = useState(calculateRemainingSeconds());
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 
 	const onNext = (e) => {
+		setLoading(true);
 		if (isActive) {
-			socket.emit('COMPLETE_CLUE', { code: currentRoom.code, wasCorrect: !!e });
+			socket.emit('COMPLETE_CLUE', { roomId: currentRoom.id, wasCorrect: !!e });
 		}
 	};
-
-	const now = () => new Date().getTime();
-
-	const calculateRemainingSeconds = () => Math.round((deadline - now()) / 1000);
 
 	const tick = () => {
 		if (remainingSeconds <= 0) {
@@ -45,6 +45,12 @@ export default function Step3({
 		const seconds = total % 60;
 		return `${minutes}:${pad(seconds, 2, '0')}`;
 	};
+
+	if (loading) {
+		return (
+			<div className="spinner" />
+		);
+	}
 
 	return (
 		<section>

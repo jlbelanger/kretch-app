@@ -2,7 +2,14 @@ import { getActivePlayer, isActivePlayer } from './Helpers';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Room({ currentPlayer, currentRoom, setScreen, socket }) {
+export default function Room({
+	addToast,
+	currentPlayer,
+	currentRoom,
+	setScreen,
+	socket,
+}) {
+	const [loading, setLoading] = useState(false);
 	const [maxSkips, setMaxSkips] = useState(3);
 	const [maxMinutes, setMaxMinutes] = useState(2);
 	const [maxSkipsError, setMaxSkipsError] = useState('');
@@ -14,7 +21,7 @@ export default function Room({ currentPlayer, currentRoom, setScreen, socket }) 
 
 		let isValid = true;
 
-		if (!maxSkips || Number.isNaN(parseFloat(maxSkips))) {
+		if (!maxSkips || /[^0-9]/.test(maxSkips)) {
 			setMaxSkipsError('Invalid number.');
 			isValid = false;
 		} else {
@@ -29,16 +36,25 @@ export default function Room({ currentPlayer, currentRoom, setScreen, socket }) 
 		}
 
 		if (!isValid) {
+			addToast('Error saving settings.');
 			return;
 		}
 
-		socket.emit('START_GAME', { code: currentRoom.code, maxMinutes, maxSkips });
+		setLoading(true);
+		socket.emit('START_GAME', { roomId: currentRoom.id, maxMinutes, maxSkips });
 	};
 
 	const back = () => {
-		socket.emit('LEAVE_ROOM', { code: currentRoom.code, playerId: currentPlayer.id });
+		setLoading(true);
+		socket.emit('LEAVE_ROOM', { roomId: currentRoom.id, playerId: currentPlayer.id });
 		setScreen('welcome');
 	};
+
+	if (loading) {
+		return (
+			<div className="spinner" />
+		);
+	}
 
 	return (
 		<form className="mini" onSubmit={submit}>
@@ -60,7 +76,7 @@ export default function Room({ currentPlayer, currentRoom, setScreen, socket }) 
 									id="max-skips"
 									inputMode="numeric"
 									maxLength={3}
-									onChange={(e) => setMaxSkips(e.target.value)}
+									onChange={(e) => setMaxSkips(e.target.value.trim())}
 									size={4}
 									value={maxSkips}
 								/>
@@ -74,7 +90,7 @@ export default function Room({ currentPlayer, currentRoom, setScreen, socket }) 
 									id="max-minutes"
 									inputMode="decimal"
 									maxLength={3}
-									onChange={(e) => setMaxMinutes(e.target.value)}
+									onChange={(e) => setMaxMinutes(e.target.value.trim())}
 									size={4}
 									value={maxMinutes}
 								/>
@@ -101,6 +117,7 @@ export default function Room({ currentPlayer, currentRoom, setScreen, socket }) 
 }
 
 Room.propTypes = {
+	addToast: PropTypes.func.isRequired,
 	currentPlayer: PropTypes.object.isRequired,
 	currentRoom: PropTypes.object.isRequired,
 	setScreen: PropTypes.func.isRequired,

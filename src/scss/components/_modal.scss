@@ -1,7 +1,9 @@
 #modal {
 	background: $indigo;
+	box-shadow: 0 0 50px $indigo-dark;
 	padding: 24px;
 	position: relative;
+	width: auto;
 }
 
 #modal-close {

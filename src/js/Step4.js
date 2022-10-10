@@ -8,6 +8,7 @@ export default function Step4({
 	currentRoom,
 	socket,
 }) {
+	const [loading, setLoading] = useState(false);
 	const activePlayer = getActivePlayer(currentRoom);
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 	const [comment] = useState(() => {
@@ -46,8 +47,15 @@ export default function Step4({
 	}
 
 	const onNext = () => {
-		socket.emit('CHANGE_PLAYER', { code: currentRoom.code });
+		setLoading(true);
+		socket.emit('CHANGE_PLAYER', { roomId: currentRoom.id });
 	};
+
+	if (loading) {
+		return (
+			<div className="spinner" />
+		);
+	}
 
 	return (
 		<section>

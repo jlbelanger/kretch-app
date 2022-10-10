@@ -10,8 +10,13 @@ import Step3 from './Step3';
 import Step4 from './Step4';
 import Welcome from './Welcome';
 
+const socket = io(process.env.REACT_APP_API_URL, {
+	path: `${process.env.REACT_APP_API_PATH}/socket.io`,
+	closeOnBeforeunload: false,
+});
+
 export default function App() {
-	const [socket, setSocket] = useState(null);
+	const [isConnected, setIsConnected] = useState(socket.connected);
 	const [screen, setScreen] = useState('welcome');
 	const [categories, setCategories] = useState([]);
 	const [currentCategorySlug, setCurrentCategorySlug] = useState(null);
@@ -23,60 +28,75 @@ export default function App() {
 	const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
 	const removeToast = (toastId) => {
-		if (Object.prototype.hasOwnProperty.call(toasts, toastId)) {
-			const newToasts = { ...toasts };
-			delete newToasts[toastId];
-			setToasts(newToasts);
-		}
+		setToasts((oldToasts) => {
+			const newToasts = { ...oldToasts };
+			if (Object.prototype.hasOwnProperty.call(newToasts, toastId)) {
+				delete newToasts[toastId];
+			}
+			return newToasts;
+		});
 	};
 
 	const addToast = (text, milliseconds = 5000) => {
 		const toastId = new Date().getTime();
-		setToasts({
-			...toasts,
+		setToasts((oldToasts) => ({
+			...oldToasts,
 			[toastId]: {
 				text,
 				milliseconds,
 			},
-		});
+		}));
 		setTimeout(() => {
 			removeToast(toastId);
 		}, milliseconds);
 	};
 
-	useEffect(() => {
-		const s = io(process.env.REACT_APP_API_URL, { path: `${process.env.REACT_APP_API_PATH}/socket.io` });
+	const onBeforeUnload = () => {
+		socket.disconnect();
+	};
 
-		s.on('JOINED_ROOM', (data) => {
-			console.log('JOINED_ROOM', data);
+	const onRetrievedClue = (data) => {
+		setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
+	};
+
+	useEffect(() => {
+		socket.on('connect', () => {
+			setIsConnected(true);
+		});
+
+		socket.on('disconnect', () => {
+			setIsConnected(false);
+		});
+
+		socket.on('JOINED_ROOM', (data) => {
 			setCategories(data.categories);
 			setCurrentPlayer(data.player);
-			setSettings(data.player.settings); // TODO: Separate player and settings in api.
+			setSettings(data.player.settings);
 			setCurrentRoom(data.room);
 			setMethods(data.methods);
-			setScreen('room');
+			if (data.room.step) {
+				setScreen(`step-${data.room.step}`);
+			} else {
+				setScreen('room');
+			}
 		});
 
-		s.on('ADDED_PLAYER', (data) => {
-			console.log('ADDED_PLAYER', data);
-			setCurrentRoom(data.room);
+		socket.on('ADDED_PLAYER', (data) => {
 			addToast(`${data.playerName} has joined.`);
+			setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
 		});
 
-		s.on('REMOVED_PLAYER', (data) => {
-			console.log('REMOVED_PLAYER', data);
-			setCurrentRoom(data.room);
+		socket.on('REMOVED_PLAYER', (data) => {
 			addToast(`${data.playerName} has left.`);
+			setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
 		});
 
-		s.on('STARTED_GAME', (data) => {
-			console.log('STARTED_GAME', data);
-			setCurrentRoom(data.room);
+		socket.on('STARTED_GAME', (data) => {
+			setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
 			setScreen('step-1');
 		});
 
-		s.on('SAVED_SETTINGS', (data) => {
-			console.log('SAVED_SETTINGS', data);
+		socket.on('SAVED_SETTINGS', (data) => {
 			const comments = ['Settings saved.'];
 			if (data.settings.maxYear.song < '2019') {
 				comments.push(`So you stopped being cool in ${data.settings.maxYear.song}. Got it.`);
@@ -91,62 +111,80 @@ export default function App() {
 			const num = comments.length;
 			const message = comments[Math.floor(Math.random() * num)];
 
+			addToast(message);
 			setSettings(data.settings);
 			setIsSettingsVisible(false);
-			addToast(message);
 		});
 
-		s.on('PICKED_CATEGORY', (data) => {
-			console.log('PICKED_CATEGORY', data);
+		socket.on('PICKED_CATEGORY', (data) => {
 			setCurrentCategorySlug(data.categorySlug);
-			setCurrentRoom(data.room);
+			setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
 			setScreen('step-2');
+			if (isActivePlayer(currentRoom, currentPlayer)) {
+				socket.emit('RETRIEVE_CLUE', { roomId: currentRoom.id, categorySlug: data.categorySlug });
+			}
 		});
 
-		s.on('RETRIEVED_CLUE', (data) => {
-			console.log('RETRIEVED_CLUE', data);
-			setCurrentRoom(data.room);
-		});
+		socket.on('RETRIEVED_CLUE', onRetrievedClue);
 
-		s.on('PICKED_CLUE', (data) => {
-			console.log('PICKED_CLUE', data);
-			setCurrentRoom(data.room);
+		socket.on('PICKED_CLUE', (data) => {
+			setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
 			setScreen('step-3');
 		});
 
-		s.on('COMPLETED_CLUE', (data) => {
-			console.log('COMPLETED_CLUE', data);
-			setCurrentRoom(data.room);
+		socket.on('COMPLETED_CLUE', (data) => {
+			setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
 			setScreen('step-4');
 		});
 
-		s.on('CHANGED_PLAYER', (data) => {
-			console.log('CHANGED_PLAYER', data);
-			setCurrentRoom(data.room);
+		socket.on('CHANGED_PLAYER', (data) => {
+			setCurrentRoom((oldRoom) => ({ ...oldRoom, ...data.room }));
 			setScreen('step-1');
 		});
 
-		s.on('ERROR_NO_CLUES', () => {
-			console.log('ERROR_NO_CLUES');
+		socket.on('ERROR_NO_CLUES', () => {
 			setScreen('game-over');
 		});
 
-		setSocket(s);
+		socket.on('ERROR_DELETED_ROOM', () => {
+			addToast('This room no longer exists.');
+			setScreen('welcome');
+			setIsSettingsVisible(false);
+		});
+
+		socket.on('ERROR_DELETED_PLAYER', () => {
+			addToast('You are no longer in that room.');
+			setScreen('welcome');
+			setIsSettingsVisible(false);
+		});
+
+		window.addEventListener('beforeunload', onBeforeUnload, { capture: true });
 
 		return () => {
-			s.disconnect();
+			socket.off('connect');
+			socket.off('disconnect');
+			socket.off('JOINED_ROOM');
+			socket.off('ADDED_PLAYER');
+			socket.off('REMOVED_PLAYER');
+			socket.off('STARTED_GAME');
+			socket.off('SAVED_SETTINGS');
+			socket.off('PICKED_CATEGORY');
+			socket.off('RETRIEVED_CLUE', onRetrievedClue);
+			socket.off('PICKED_CLUE');
+			socket.off('COMPLETED_CLUE');
+			socket.off('CHANGED_PLAYER');
+			socket.off('ERROR_NO_CLUES');
+			socket.off('ERROR_DELETED_ROOM');
+			socket.off('ERROR_DELETED_PLAYER');
+			window.removeEventListener('beforeunload', onBeforeUnload, { capture: true });
 		};
-	}, []);
+	}, [currentRoom, currentPlayer]);
 
-	if (!socket) {
-		return null;
+	if (!socket || !isConnected) {
+		return (
+			<div className="spinner" />
+		);
 	}
-
-	const retrieveClue = (categorySlug) => {
-		if (isActivePlayer(currentRoom, currentPlayer)) {
-			socket.emit('RETRIEVE_CLUE', { code: currentRoom.code, categorySlug });
-		}
-	};
 
 	let screenComponent = null;
 	if (isSettingsVisible) {
@@ -169,6 +207,7 @@ export default function App() {
 	} else if (screen === 'room') {
 		screenComponent = (
 			<Room
+				addToast={addToast}
 				currentPlayer={currentPlayer}
 				currentRoom={currentRoom}
 				setScreen={setScreen}
@@ -177,7 +216,12 @@ export default function App() {
 		);
 	} else if (screen === 'game-over') {
 		screenComponent = (
-			<GameOver />
+			<GameOver
+				currentPlayer={currentPlayer}
+				currentRoom={currentRoom}
+				setScreen={setScreen}
+				socket={socket}
+			/>
 		);
 	} else {
 		const components = [
@@ -199,7 +243,6 @@ export default function App() {
 					currentCategorySlug={currentCategorySlug}
 					currentPlayer={currentPlayer}
 					currentRoom={currentRoom}
-					retrieveClue={retrieveClue}
 					setScreen={setScreen}
 					socket={socket}
 				/>
@@ -208,7 +251,7 @@ export default function App() {
 	}
 
 	return (
-		<main className={isSettingsVisible ? 'modal-open' : ''} id="main">
+		<main id="main">
 			{screenComponent}
 			<div className="toast-container">
 				{Object.keys(toasts).map((id) => (

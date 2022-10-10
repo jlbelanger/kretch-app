@@ -8,6 +8,10 @@ body {
 	font-size: 18px;
 	margin: 0;
 	padding: 0;
+
+	&.modal-open {
+		background: scale-color($indigo, $lightness: -15%);
+	}
 }
 
 #main {
@@ -20,8 +24,8 @@ body {
 	text-align: center;
 	width: 100%;
 
-	&.modal-open {
-		background: $indigo-dark;
+	.modal-open & {
+		padding: 12px;
 	}
 }
 

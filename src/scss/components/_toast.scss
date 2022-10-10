@@ -16,10 +16,15 @@
 	background-color: $indigo-dark;
 	color: $white;
 	display: flex;
+	line-height: 1;
 	margin: 8px;
 	max-width: 90vw;
-	padding: 8px;
+	padding: 12px;
 	pointer-events: auto;
+
+	.modal-open & {
+		background: scale-color($indigo-dark, $lightness: -20%);
+	}
 }
 
 @keyframes slide-in-out {
