@@ -46,6 +46,12 @@ yarn lint
 yarn test:cypress
 ```
 
+### Generate splash screens
+
+``` bash
+npx pwa-asset-generator public/icon.png ./public/img/splash --background "#283593" --splash-only --type png --portrait-only --padding "20%"
+```
+
 ## Deployment
 
 Note: The deploy script included in this repo depends on other scripts that only exist in my private repos. If you want to deploy this repo, you'll have to create your own script.
