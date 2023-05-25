@@ -217,7 +217,7 @@ export default function Settings({
 										<td>
 											<div
 												aria-label={`${category.plural} minimum year`}
-												className={yearsFieldsWithErrors.includes(`${category.slug}.min`) ? 'field__input-wrapper--invalid' : ''}
+												className={yearsFieldsWithErrors.includes(`${category.slug}.min`) && 'field__input-wrapper--invalid'}
 											>
 												<input
 													data-category={category.slug}
@@ -234,7 +234,7 @@ export default function Settings({
 										<td>
 											<div
 												aria-label={`${category.plural} maximum year`}
-												className={yearsFieldsWithErrors.includes(`${category.slug}.max`) ? 'field__input-wrapper--invalid' : ''}
+												className={yearsFieldsWithErrors.includes(`${category.slug}.max`) && 'field__input-wrapper--invalid'}
 											>
 												<input
 													data-category={category.slug}
