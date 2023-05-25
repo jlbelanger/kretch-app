@@ -194,6 +194,7 @@ export default function App() {
 				categories={categories}
 				currentPlayer={currentPlayer}
 				currentRoom={currentRoom}
+				event={isSettingsVisible}
 				methods={methods}
 				setIsSettingsVisible={setIsSettingsVisible}
 				settings={settings}
@@ -236,7 +237,7 @@ export default function App() {
 			<>
 				<header id="header">
 					<div aria-label="Room code" id="room-code">{currentRoom.code}</div>
-					<button className="icon" id="settings-button" onClick={() => { setIsSettingsVisible(true); }} type="button">Settings</button>
+					<button className="icon" id="settings-button" onClick={(e) => { setIsSettingsVisible(e); }} type="button">Settings</button>
 				</header>
 				<Component
 					categories={categories}

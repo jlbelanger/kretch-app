@@ -1,9 +1,10 @@
-#modal {
+.modal {
 	background: $indigo;
+	border: 0;
 	box-shadow: 0 0 50px $indigo-dark;
+	color: $white;
 	padding: 24px;
 	position: relative;
-	width: auto;
 }
 
 #modal-close {
@@ -11,9 +12,13 @@
 	background-image: url('../../svg/x.svg');
 	background-size: 40%;
 	height: 44px;
-	margin: 12px;
+	margin: 0;
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: -12px;
+	top: -12px;
 	width: 44px;
+}
+
+.modal::backdrop {
+	background-color: transparent;
 }

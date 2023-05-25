@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Modal from './Components.js/Modal';
 import PropTypes from 'prop-types';
 
 export default function Settings({
@@ -6,6 +7,7 @@ export default function Settings({
 	categories,
 	currentPlayer,
 	currentRoom,
+	event,
 	methods,
 	setIsSettingsVisible,
 	settings,
@@ -130,139 +132,141 @@ export default function Settings({
 	}, []);
 
 	return (
-		<form id="modal" onSubmit={submit}>
-			{loading && <div className="spinner" />}
+		<Modal event={event} onClickCancel={onCancel}>
+			<form onSubmit={submit}>
+				{loading && <div className="spinner" />}
 
-			<h1>Settings</h1>
+				<h1>Settings</h1>
 
-			<button aria-label="Close settings" className="icon" id="modal-close" onClick={onCancel} type="button">
-				<span aria-hidden="true">Close</span>
-			</button>
-
-			<fieldset>
-				<legend>Random Categories</legend>
-
-				<ul className="checkbox-list">
-					{categories.map((category) => {
-						const checked = playerCategories.includes(category.slug);
-						return (
-							<li className="checkbox-list__item" key={category.id}>
-								<label className="checkbox-list__label">
-									<input
-										checked={checked}
-										name="categories[]"
-										onChange={onChangeCategory}
-										type="checkbox"
-										value={category.slug}
-									/>
-									<span>{category.plural}</span>
-								</label>
-							</li>
-						);
-					})}
-				</ul>
-			</fieldset>
-
-			<p aria-live="polite" className="field-error">{categoriesError}</p>
-
-			<fieldset>
-				<legend>Actions</legend>
-
-				<ul className="checkbox-list">
-					{methods.map((method) => {
-						const checked = playerMethods.includes(method.slug);
-						return (
-							<li className="checkbox-list__item" key={method.id}>
-								<label className="checkbox-list__label">
-									<input
-										checked={checked}
-										name="methods[]"
-										onChange={onChangeMethod}
-										type="checkbox"
-										value={method.slug}
-									/>
-									<span>{method.name}</span>
-								</label>
-							</li>
-						);
-					})}
-				</ul>
-			</fieldset>
-
-			<p aria-live="polite" className="field-error">{actionsError}</p>
-
-			<fieldset>
-				<legend>Year Ranges</legend>
-
-				<table>
-					<thead>
-						<tr aria-hidden>
-							<th />
-							<th scope="col">From</th>
-							<th scope="col">To</th>
-						</tr>
-					</thead>
-					<tbody>
-						{categories.filter((category) => (category.minYear > 0)).map((category) => (
-							<React.Fragment key={category.id}>
-								<tr>
-									<th aria-hidden>
-										<label className="label--inline" htmlFor={`min-year-${category.slug}`}>
-											{category.plural}
-										</label>
-									</th>
-									<td>
-										<div
-											aria-label={`${category.plural} minimum year`}
-											className={yearsFieldsWithErrors.includes(`${category.slug}.min`) ? 'field__input-wrapper--invalid' : ''}
-										>
-											<input
-												data-category={category.slug}
-												id={`min-year-${category.slug}`}
-												inputMode="numeric"
-												maxLength={4}
-												onChange={onChangeMinYear}
-												size={5}
-												type="text"
-												value={minYear[category.slug]}
-											/>
-										</div>
-									</td>
-									<td>
-										<div
-											aria-label={`${category.plural} maximum year`}
-											className={yearsFieldsWithErrors.includes(`${category.slug}.max`) ? 'field__input-wrapper--invalid' : ''}
-										>
-											<input
-												data-category={category.slug}
-												id={`max-year-${category.slug}`}
-												inputMode="numeric"
-												maxLength={4}
-												onChange={onChangeMaxYear}
-												size={5}
-												type="text"
-												value={maxYear[category.slug]}
-											/>
-										</div>
-									</td>
-								</tr>
-								{yearsErrors[category.slug] && (
-									<tr>
-										<td aria-live="polite" className="field-error" colSpan={3}>{yearsErrors[category.slug]}</td>
-									</tr>
-								)}
-							</React.Fragment>
-						))}
-					</tbody>
-				</table>
-			</fieldset>
-
-			<p>
-				<button aria-label="Save settings" disabled={isDisabled} type="submit">
-					<span aria-hidden="true">Save</span>
+				<button aria-label="Close settings" className="icon" id="modal-close" onClick={onCancel} type="button">
+					<span aria-hidden="true">Close</span>
 				</button>
-			</p>
-		</form>
+
+				<fieldset>
+					<legend>Random Categories</legend>
+
+					<ul className="checkbox-list">
+						{categories.map((category) => {
+							const checked = playerCategories.includes(category.slug);
+							return (
+								<li className="checkbox-list__item" key={category.id}>
+									<label className="checkbox-list__label">
+										<input
+											checked={checked}
+											name="categories[]"
+											onChange={onChangeCategory}
+											type="checkbox"
+											value={category.slug}
+										/>
+										<span>{category.plural}</span>
+									</label>
+								</li>
+							);
+						})}
+					</ul>
+				</fieldset>
+
+				<p aria-live="polite" className="field-error">{categoriesError}</p>
+
+				<fieldset>
+					<legend>Actions</legend>
+
+					<ul className="checkbox-list">
+						{methods.map((method) => {
+							const checked = playerMethods.includes(method.slug);
+							return (
+								<li className="checkbox-list__item" key={method.id}>
+									<label className="checkbox-list__label">
+										<input
+											checked={checked}
+											name="methods[]"
+											onChange={onChangeMethod}
+											type="checkbox"
+											value={method.slug}
+										/>
+										<span>{method.name}</span>
+									</label>
+								</li>
+							);
+						})}
+					</ul>
+				</fieldset>
+
+				<p aria-live="polite" className="field-error">{actionsError}</p>
+
+				<fieldset>
+					<legend>Year Ranges</legend>
+
+					<table>
+						<thead>
+							<tr aria-hidden>
+								<th />
+								<th scope="col">From</th>
+								<th scope="col">To</th>
+							</tr>
+						</thead>
+						<tbody>
+							{categories.filter((category) => (category.minYear > 0)).map((category) => (
+								<React.Fragment key={category.id}>
+									<tr>
+										<th aria-hidden>
+											<label className="label--inline" htmlFor={`min-year-${category.slug}`}>
+												{category.plural}
+											</label>
+										</th>
+										<td>
+											<div
+												aria-label={`${category.plural} minimum year`}
+												className={yearsFieldsWithErrors.includes(`${category.slug}.min`) ? 'field__input-wrapper--invalid' : ''}
+											>
+												<input
+													data-category={category.slug}
+													id={`min-year-${category.slug}`}
+													inputMode="numeric"
+													maxLength={4}
+													onChange={onChangeMinYear}
+													size={5}
+													type="text"
+													value={minYear[category.slug]}
+												/>
+											</div>
+										</td>
+										<td>
+											<div
+												aria-label={`${category.plural} maximum year`}
+												className={yearsFieldsWithErrors.includes(`${category.slug}.max`) ? 'field__input-wrapper--invalid' : ''}
+											>
+												<input
+													data-category={category.slug}
+													id={`max-year-${category.slug}`}
+													inputMode="numeric"
+													maxLength={4}
+													onChange={onChangeMaxYear}
+													size={5}
+													type="text"
+													value={maxYear[category.slug]}
+												/>
+											</div>
+										</td>
+									</tr>
+									{yearsErrors[category.slug] && (
+										<tr>
+											<td aria-live="polite" className="field-error" colSpan={3}>{yearsErrors[category.slug]}</td>
+										</tr>
+									)}
+								</React.Fragment>
+							))}
+						</tbody>
+					</table>
+				</fieldset>
+
+				<p>
+					<button aria-label="Save settings" disabled={isDisabled} type="submit">
+						<span aria-hidden="true">Save</span>
+					</button>
+				</p>
+			</form>
+		</Modal>
 	);
 }
 
@@ -271,6 +275,7 @@ Settings.propTypes = {
 	categories: PropTypes.array.isRequired,
 	currentPlayer: PropTypes.object.isRequired,
 	currentRoom: PropTypes.object.isRequired,
+	event: PropTypes.object.isRequired,
 	methods: PropTypes.array.isRequired,
 	settings: PropTypes.object.isRequired,
 	setIsSettingsVisible: PropTypes.func.isRequired,
