@@ -13,7 +13,7 @@
 		"url": "https://github.com/jlbelanger/kretch-app.git"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "npx browserslist@latest --update-db && react-scripts start",
 		"build": "react-scripts build",
 		"lint": "yarn lint:css && yarn lint:js",
 		"lint:css": "node_modules/.bin/stylelint 'src/scss/**/*.scss'",
@@ -22,11 +22,11 @@
 	},
 	"dependencies": {
 		"dotenv": "^16.0.3",
-		"sass": "^1.57.1",
 		"prop-types": "^15.8.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-scripts": "^5.0.1",
+		"sass": "^1.57.1",
 		"socket.io-client": "^4.5.4"
 	},
 	"devDependencies": {
