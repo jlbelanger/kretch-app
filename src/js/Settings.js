@@ -134,7 +134,7 @@ export default function Settings({
 	return (
 		<Modal event={event} onClickCancel={onCancel}>
 			<form onSubmit={submit}>
-				{loading && <div className="spinner" />}
+				{loading && <div className="spinner" role="status">Loading...</div>}
 
 				<h1>Settings</h1>
 
@@ -166,7 +166,7 @@ export default function Settings({
 					</ul>
 				</fieldset>
 
-				<p aria-live="polite" className="field-error">{categoriesError}</p>
+				<p aria-live="polite" className="field-error" role="alert">{categoriesError}</p>
 
 				<fieldset>
 					<legend>Actions</legend>
@@ -192,7 +192,7 @@ export default function Settings({
 					</ul>
 				</fieldset>
 
-				<p aria-live="polite" className="field-error">{actionsError}</p>
+				<p aria-live="polite" className="field-error" role="alert">{actionsError}</p>
 
 				<fieldset>
 					<legend>Year Ranges</legend>
@@ -251,7 +251,7 @@ export default function Settings({
 									</tr>
 									{yearsErrors[category.slug] && (
 										<tr>
-											<td aria-live="polite" className="field-error" colSpan={3}>{yearsErrors[category.slug]}</td>
+											<td aria-live="polite" className="field-error" colSpan={3} role="alert">{yearsErrors[category.slug]}</td>
 										</tr>
 									)}
 								</React.Fragment>

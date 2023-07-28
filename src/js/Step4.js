@@ -53,7 +53,7 @@ export default function Step4({
 
 	if (loading) {
 		return (
-			<div className="spinner" />
+			<div className="spinner" role="status">Loading...</div>
 		);
 	}
 

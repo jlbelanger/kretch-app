@@ -182,7 +182,7 @@ export default function App() {
 
 	if (!socket || !isConnected) {
 		return (
-			<div aria-label="Connecting..." className="spinner" />
+			<div className="spinner" role="status">Connecting...</div>
 		);
 	}
 
@@ -252,7 +252,7 @@ export default function App() {
 	}
 
 	return (
-		<main aria-live="polite" id="main">
+		<main aria-live="assertive" id="main" role="region">
 			{screenComponent}
 			<div className="toast-container">
 				{Object.keys(toasts).map((id) => (

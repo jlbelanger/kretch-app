@@ -61,7 +61,7 @@ export default function Step3({
 
 	if (loading) {
 		return (
-			<div className="spinner" />
+			<div className="spinner" role="status">Loading...</div>
 		);
 	}
 
@@ -86,7 +86,7 @@ export default function Step3({
 				</p>
 			)}
 
-			<p aria-label={`Time remaining: ${formatTimeAria(remainingSeconds)}`} aria-live="polite" id="timer">
+			<p aria-label={`Time remaining: ${formatTimeAria(remainingSeconds)}`} id="timer" role="status">
 				<span aria-hidden="true">{formatTime(remainingSeconds)}</span>
 			</p>
 

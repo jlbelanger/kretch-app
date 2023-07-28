@@ -53,7 +53,7 @@ export default function Step2({
 
 	if (loading) {
 		return (
-			<div className="spinner" />
+			<div className="spinner" role="status">Loading...</div>
 		);
 	}
 
@@ -76,9 +76,9 @@ export default function Step2({
 					<div className={categoryClassName} />
 				</div>
 
-				<h1 aria-live="polite" className="text">{`${category.pre[method.slug]} the ${category.name}:`}</h1>
+				<h1 className="text">{`${category.pre[method.slug]} the ${category.name}:`}</h1>
 
-				<p aria-live="polite" className="highlight" id="clue">{loadingClue ? '...' : clue.name}</p>
+				<p className="highlight" id="clue">{loadingClue ? '...' : clue.name}</p>
 
 				{clue.img && !loadingClue ? (
 					<p>

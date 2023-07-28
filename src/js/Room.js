@@ -52,7 +52,7 @@ export default function Room({
 
 	if (loading) {
 		return (
-			<div className="spinner" />
+			<div className="spinner" role="status">Loading...</div>
 		);
 	}
 
@@ -101,8 +101,8 @@ export default function Room({
 					</div>
 
 					<div className="flex" style={{ justifyContent: 'space-between' }}>
-						<span aria-live="polite" className="field-error" style={{ textAlign: 'left' }}>{maxSkipsError}</span>
-						<span aria-live="polite" className="field-error" style={{ textAlign: 'right' }}>{maxMinutesError}</span>
+						<span aria-live="polite" className="field-error" style={{ textAlign: 'left' }} role="alert">{maxSkipsError}</span>
+						<span aria-live="polite" className="field-error" style={{ textAlign: 'right' }} role="alert">{maxMinutesError}</span>
 					</div>
 				</>
 			) : (

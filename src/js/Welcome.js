@@ -86,7 +86,7 @@ export default function Welcome({ socket }) {
 
 	return (
 		<form className="mini" onSubmit={onSubmit}>
-			{loading && <div className="spinner" />}
+			{loading && <div className="spinner" role="status">Loading...</div>}
 
 			<h1>Kretch</h1>
 
@@ -104,7 +104,7 @@ export default function Welcome({ socket }) {
 				</div>
 			</div>
 
-			<div aria-live="polite" className="field-error">{nameError}</div>
+			<div aria-live="polite" className="field-error" role="alert">{nameError}</div>
 
 			<div className="field">
 				<label htmlFor="code">Room:</label>
@@ -121,7 +121,7 @@ export default function Welcome({ socket }) {
 				</div>
 			</div>
 
-			<div aria-live="polite" className="field-error">{codeError}</div>
+			<div aria-live="polite" className="field-error" role="alert">{codeError}</div>
 
 			<p className="flex">
 				<label>or</label>
