@@ -1,0 +1,30 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	color: $white;
+	font-family: raleway, sans-serif;
+	font-size: 18px;
+	margin: 0;
+	padding: 0;
+
+	&.modal-open {
+		background: scale-color($indigo, $lightness: -15%);
+	}
+}
+
+#main {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	min-height: 100vh;
+	padding: $header-height 12px;
+	text-align: center;
+	width: 100%;
+
+	.modal-open & {
+		padding: 12px;
+	}
+}
