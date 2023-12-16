@@ -206,56 +206,62 @@ export default function Settings({
 							</tr>
 						</thead>
 						<tbody>
-							{categories.filter((category) => (category.minYear > 0)).map((category) => (
-								<React.Fragment key={category.id}>
-									<tr>
-										<th aria-hidden>
-											<label className="label--inline" htmlFor={`min-year-${category.slug}`}>
-												{category.plural}
-											</label>
-										</th>
-										<td>
-											<div
-												aria-label={`${category.plural} minimum year`}
-												className={yearsFieldsWithErrors.includes(`${category.slug}.min`) && 'field__input-wrapper--invalid'}
-											>
-												<input
-													data-category={category.slug}
-													id={`min-year-${category.slug}`}
-													inputMode="numeric"
-													maxLength={4}
-													onChange={onChangeMinYear}
-													size={5}
-													type="text"
-													value={minYear[category.slug]}
-												/>
-											</div>
-										</td>
-										<td>
-											<div
-												aria-label={`${category.plural} maximum year`}
-												className={yearsFieldsWithErrors.includes(`${category.slug}.max`) && 'field__input-wrapper--invalid'}
-											>
-												<input
-													data-category={category.slug}
-													id={`max-year-${category.slug}`}
-													inputMode="numeric"
-													maxLength={4}
-													onChange={onChangeMaxYear}
-													size={5}
-													type="text"
-													value={maxYear[category.slug]}
-												/>
-											</div>
-										</td>
-									</tr>
-									{yearsErrors[category.slug] && (
+							{categories.filter((category) => (category.minYear > 0)).map((category) => {
+								const hasMinYearError = yearsFieldsWithErrors.includes(`${category.slug}.min`);
+								const hasMaxYearError = yearsFieldsWithErrors.includes(`${category.slug}.max`);
+								return (
+									<React.Fragment key={category.id}>
 										<tr>
-											<td aria-live="polite" className="field-error" colSpan={3} role="alert">{yearsErrors[category.slug]}</td>
+											<th aria-hidden>
+												<label className="label--inline" htmlFor={`min-year-${category.slug}`}>
+													{category.plural}
+												</label>
+											</th>
+											<td>
+												<div
+													aria-label={`${category.plural} minimum year`}
+													className={hasMinYearError ? 'field__input-wrapper--invalid' : ''}
+												>
+													<input
+														data-category={category.slug}
+														id={`min-year-${category.slug}`}
+														inputMode="numeric"
+														maxLength={4}
+														onChange={onChangeMinYear}
+														size={5}
+														type="text"
+														value={minYear[category.slug]}
+													/>
+												</div>
+											</td>
+											<td>
+												<div
+													aria-label={`${category.plural} maximum year`}
+													className={hasMaxYearError ? 'field__input-wrapper--invalid' : ''}
+												>
+													<input
+														data-category={category.slug}
+														id={`max-year-${category.slug}`}
+														inputMode="numeric"
+														maxLength={4}
+														onChange={onChangeMaxYear}
+														size={5}
+														type="text"
+														value={maxYear[category.slug]}
+													/>
+												</div>
+											</td>
 										</tr>
-									)}
-								</React.Fragment>
-							))}
+										{yearsErrors[category.slug] && (
+											<tr>
+												<td colSpan={3}>
+													<div aria-live="polite" className="field-error" role="alert">{yearsErrors[category.slug]}</div>
+												</td>
+											</tr>
+										)}
+									</React.Fragment>
+								);
+							})}
 						</tbody>
 					</table>
 				</fieldset>
