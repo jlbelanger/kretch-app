@@ -70,7 +70,11 @@ export default function Welcome({ socket }) {
 			return;
 		}
 
-		window.localStorage.setItem('name', name);
+		try {
+			window.localStorage.setItem('name', name);
+		} catch (e) {
+			// If cookies are disabled, localStorage isn't available.
+		}
 		setLoading(true);
 		socket.emit('CREATE_ROOM', { name });
 	};
