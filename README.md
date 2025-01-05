@@ -40,12 +40,6 @@ Your browser should automatically open http://localhost:3000/
 yarn lint
 ```
 
-### Test
-
-``` bash
-yarn test:cypress
-```
-
 ### Generate splash screens
 
 ``` bash

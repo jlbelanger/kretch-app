@@ -1,8 +1,11 @@
+@use 'sass:color';
+@use '../utilities/variables';
+
 button {
-	background-color: $off-white;
+	background-color: variables.$off-white;
 	border: 0;
 	border-radius: 0;
-	color: $indigo;
+	color: variables.$indigo;
 	cursor: pointer;
 	display: block;
 	line-height: 1.5;
@@ -20,30 +23,30 @@ button {
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: $white;
+		background-color: variables.$white;
 	}
 
 	&[disabled] {
-		background-color: $indigo-gray;
-		color: $gray;
+		background-color: variables.$indigo-gray;
+		color: variables.$gray;
 		cursor: not-allowed;
 
 		&:hover,
 		&:active,
 		&:focus {
-			background-color: $indigo-gray;
+			background-color: variables.$indigo-gray;
 		}
 	}
 }
 
 .button--secondary {
-	background-color: $indigo-light;
-	color: $white;
+	background-color: variables.$indigo-light;
+	color: variables.$white;
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: scale-color($indigo-light, $lightness: 5%);
+		background-color: color.scale(variables.$indigo-light, $lightness: 5%);
 	}
 }
 
@@ -51,7 +54,7 @@ button {
 	background-color: transparent;
 	background-image: url('../../svg/chevron.svg');
 	background-size: 40%;
-	color: $white;
+	color: variables.$white;
 	height: 44px;
 	left: 0;
 	margin: -6px 0 0;

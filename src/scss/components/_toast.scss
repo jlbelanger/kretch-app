@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use '../utilities/variables';
+
 .toast-container {
 	align-items: flex-end;
 	bottom: 0;
@@ -13,8 +16,8 @@
 	align-items: center;
 	animation-fill-mode: forwards;
 	animation-name: slide-in-out;
-	background-color: $indigo-dark;
-	color: $white;
+	background-color: variables.$indigo-dark;
+	color: variables.$white;
 	display: flex;
 	line-height: 1;
 	margin: 8px;
@@ -23,7 +26,7 @@
 	pointer-events: auto;
 
 	.modal-open & {
-		background: scale-color($indigo-dark, $lightness: -20%);
+		background: color.scale(variables.$indigo-dark, $lightness: -20%);
 	}
 }
 

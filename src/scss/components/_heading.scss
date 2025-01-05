@@ -1,8 +1,10 @@
+@use '../utilities/variables';
+
 h1,
 .highlight {
-	font-size: $highlight-font-size;
+	font-size: variables.$highlight-font-size;
 	font-weight: normal;
-	line-height: $highlight-line-height;
+	line-height: variables.$highlight-line-height;
 }
 
 h1 {

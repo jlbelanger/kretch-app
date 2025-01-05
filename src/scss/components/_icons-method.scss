@@ -1,19 +1,21 @@
+@use '../utilities/variables';
+
 .method-describe {
-	background-color: $yellow;
+	background-color: variables.$yellow;
 	background-image: url('../../svg/describe.svg');
 }
 
 .method-mime {
-	background-color: $orange;
+	background-color: variables.$orange;
 	background-image: url('../../svg/mime.svg');
 }
 
 .method-draw {
-	background-color: $blue;
+	background-color: variables.$blue;
 	background-image: url('../../svg/draw.svg');
 }
 
 .method-sing {
-	background-color: $pink;
+	background-color: variables.$pink;
 	background-image: url('../../svg/sing.svg');
 }

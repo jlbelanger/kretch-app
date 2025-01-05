@@ -1,16 +1,18 @@
+@use '../utilities/variables';
+
 #category-list {
 	margin-left: -12px;
 	margin-right: -12px;
 }
 
 .category-person {
-	background-color: $cyan;
+	background-color: variables.$cyan;
 	background-image: url('../../svg/person.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: $cyan-light;
+		background-color: variables.$cyan-light;
 	}
 }
 
@@ -19,13 +21,13 @@ button.category-person::after {
 }
 
 .category-meme {
-	background-color: $teal;
+	background-color: variables.$teal;
 	background-image: url('../../svg/meme.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: $teal-light;
+		background-color: variables.$teal-light;
 	}
 }
 
@@ -34,13 +36,13 @@ button.category-meme::after {
 }
 
 .category-movie {
-	background-color: $red;
+	background-color: variables.$red;
 	background-image: url('../../svg/movie.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: $red-light;
+		background-color: variables.$red-light;
 	}
 }
 
@@ -49,13 +51,13 @@ button.category-movie::after {
 }
 
 .category-tv-show {
-	background-color: $green;
+	background-color: variables.$green;
 	background-image: url('../../svg/tv-show.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: $green-light;
+		background-color: variables.$green-light;
 	}
 }
 
@@ -64,13 +66,13 @@ button.category-tv-show::after {
 }
 
 .category-song {
-	background-color: $purple;
+	background-color: variables.$purple;
 	background-image: url('../../svg/song.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: $purple-light;
+		background-color: variables.$purple-light;
 	}
 }
 

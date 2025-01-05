@@ -1,16 +1,19 @@
+@use 'sass:color';
+@use '../utilities/variables';
+
 * {
 	box-sizing: border-box;
 }
 
 body {
-	color: $white;
+	color: variables.$white;
 	font-family: raleway, sans-serif;
 	font-size: 18px;
 	margin: 0;
 	padding: 0;
 
 	&.modal-open {
-		background: scale-color($indigo, $lightness: -15%);
+		background: color.scale(variables.$indigo, $lightness: -15%);
 	}
 }
 
@@ -20,7 +23,7 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	min-height: 100vh;
-	padding: $header-height 12px;
+	padding: variables.$header-height 12px;
 	text-align: center;
 	width: 100%;
 

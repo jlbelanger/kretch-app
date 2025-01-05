@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Step2({
-	currentCategorySlug,
+	currentCategorySlug = '',
 	currentPlayer,
 	currentRoom,
 	socket,
@@ -110,8 +110,4 @@ Step2.propTypes = {
 	currentPlayer: PropTypes.object.isRequired,
 	currentRoom: PropTypes.object.isRequired,
 	socket: PropTypes.object.isRequired,
-};
-
-Step2.defaultProps = {
-	currentCategorySlug: '',
 };

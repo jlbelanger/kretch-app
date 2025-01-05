@@ -1,3 +1,5 @@
+@use '../utilities/variables';
+
 .icon {
 	background-position: center;
 	background-repeat: no-repeat;
@@ -17,7 +19,7 @@ button.icon {
 	position: relative;
 
 	&::after {
-		color: $white;
+		color: variables.$white;
 		display: block;
 		font-size: 16px;
 		left: 0;

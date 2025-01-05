@@ -6,6 +6,5 @@
 *.log
 /build
 build.zip
-cypress.env.json
 node_modules
 TODO.md

@@ -1,3 +1,5 @@
+@use '../utilities/variables';
+
 input[type='checkbox'] {
 	appearance: none;
 	background: none;
@@ -16,23 +18,23 @@ input[type='checkbox'] {
 	}
 
 	& + span {
-		color: $indigo-light;
+		color: variables.$indigo-light;
 		pointer-events: none;
 		position: relative;
 		z-index: 1;
 	}
 
 	&:checked {
-		background: $indigo-light;
+		background: variables.$indigo-light;
 
 		&:hover,
 		&:active,
 		&:focus {
-			background: $indigo-lighter;
+			background: variables.$indigo-lighter;
 		}
 
 		& + span {
-			color: $white;
+			color: variables.$white;
 		}
 	}
 
@@ -41,7 +43,7 @@ input[type='checkbox'] {
 		&:active,
 		&:focus {
 			& + span {
-				color: $indigo-lighter;
+				color: variables.$indigo-lighter;
 			}
 		}
 	}

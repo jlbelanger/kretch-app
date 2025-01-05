@@ -1,4 +1,6 @@
+@use '../utilities/variables';
+
 .wait {
-	color: $gray;
+	color: variables.$gray;
 	font-style: italic;
 }

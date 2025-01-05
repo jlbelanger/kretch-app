@@ -1,3 +1,5 @@
+@use '../utilities/variables';
+
 .field {
 	align-items: center;
 	display: flex;
@@ -10,11 +12,11 @@
 }
 
 .field__input-wrapper--invalid {
-	box-shadow: 0 0 0 4px rgba($red, .5);
+	box-shadow: 0 0 0 4px rgba(variables.$red, .5);
 }
 
 .field-error {
-	color: $red;
+	color: variables.$red;
 	font-size: 16px;
 	margin-top: 8px;
 	text-align: right;

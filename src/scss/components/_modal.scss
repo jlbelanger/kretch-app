@@ -1,8 +1,10 @@
+@use '../utilities/variables';
+
 .modal {
-	background: $indigo;
+	background: variables.$indigo;
 	border: 0;
-	box-shadow: 0 0 50px $indigo-dark;
-	color: $white;
+	box-shadow: 0 0 50px variables.$indigo-dark;
+	color: variables.$white;
 	padding: 24px;
 	position: relative;
 }
