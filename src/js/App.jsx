@@ -10,8 +10,8 @@ import Step3 from './Step3';
 import Step4 from './Step4';
 import Welcome from './Welcome';
 
-const socket = io(process.env.REACT_APP_API_URL, {
-	path: `${process.env.REACT_APP_API_PATH}/socket.io`,
+const socket = io(import.meta.env.VITE_API_URL, {
+	path: `${import.meta.env.VITE_API_PATH}/socket.io`,
 	closeOnBeforeunload: false,
 });
 

@@ -1,17 +1,14 @@
-@use 'sass:color';
-@use '../utilities/variables';
-
 input {
-	background: variables.$indigo-medium;
+	background: var(--indigo-medium);
 	border: 0;
 	border-radius: 0;
-	color: variables.$white;
+	color: var(--white);
 	line-height: 1.5;
 	padding: 8px;
 	width: 100%;
 
 	&:focus {
-		background-color: color.scale(variables.$indigo-medium, $lightness: 10%);
+		background-color: var(--indigo-mediumish);
 		position: relative;
 		z-index: 1;
 	}
@@ -22,7 +19,7 @@ input {
 }
 
 fieldset {
-	border-color: variables.$indigo-light;
+	border-color: var(--indigo-light);
 	border-style: solid;
 	border-width: 1px;
 }

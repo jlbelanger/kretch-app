@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Modal from './Components.js/Modal';
+import Modal from './Components/Modal';
 import PropTypes from 'prop-types';
 
 export default function Settings({

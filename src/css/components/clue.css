@@ -1,0 +1,11 @@
+#clue {
+	align-items: center;
+	display: flex;
+	height: calc((var(--highlight-font-size) * var(--highlight-line-height)) * 3);
+	justify-content: center;
+}
+
+img {
+	height: 200px;
+	width: auto;
+}

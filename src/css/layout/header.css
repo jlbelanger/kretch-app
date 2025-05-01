@@ -1,5 +1,3 @@
-@use '../utilities/variables';
-
 #header {
 	align-items: center;
 	display: flex;
@@ -13,17 +11,17 @@
 }
 
 #room-code {
-	color: variables.$indigo-lighter;
+	color: var(--indigo-lighter);
 	font-size: 28px;
 	font-weight: bold;
 }
 
 #settings-button {
-	background-color: variables.$indigo;
+	background-color: var(--indigo);
 	background-image: url('../../svg/cog.svg');
 	background-size: 60%;
-	color: variables.$white;
-	height: variables.$header-height;
+	color: var(--white);
+	height: var(--header-height);
 	margin: 0;
-	width: variables.$header-height;
+	width: var(--header-height);
 }

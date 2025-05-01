@@ -1,18 +1,16 @@
-@use '../utilities/variables';
-
 #category-list {
 	margin-left: -12px;
 	margin-right: -12px;
 }
 
 .category-person {
-	background-color: variables.$cyan;
+	background-color: var(--cyan);
 	background-image: url('../../svg/person.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: variables.$cyan-light;
+		background-color: var(--cyan-light);
 	}
 }
 
@@ -21,13 +19,13 @@ button.category-person::after {
 }
 
 .category-meme {
-	background-color: variables.$teal;
+	background-color: var(--teal);
 	background-image: url('../../svg/meme.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: variables.$teal-light;
+		background-color: var(--teal-light);
 	}
 }
 
@@ -36,13 +34,13 @@ button.category-meme::after {
 }
 
 .category-movie {
-	background-color: variables.$red;
+	background-color: var(--red);
 	background-image: url('../../svg/movie.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: variables.$red-light;
+		background-color: var(--red-light);
 	}
 }
 
@@ -51,13 +49,13 @@ button.category-movie::after {
 }
 
 .category-tv-show {
-	background-color: variables.$green;
+	background-color: var(--green);
 	background-image: url('../../svg/tv-show.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: variables.$green-light;
+		background-color: var(--green-light);
 	}
 }
 
@@ -66,13 +64,13 @@ button.category-tv-show::after {
 }
 
 .category-song {
-	background-color: variables.$purple;
+	background-color: var(--purple);
 	background-image: url('../../svg/song.svg');
 
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: variables.$purple-light;
+		background-color: var(--purple-light);
 	}
 }
 

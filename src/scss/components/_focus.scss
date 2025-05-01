@@ -1,7 +1,0 @@
-@use '../utilities/variables';
-
-:focus {
-	border-color: variables.$blue;
-	box-shadow: 0 0 0 4px variables.$blue;
-	outline: none !important; /* stylelint-disable-line declaration-no-important */
-}
