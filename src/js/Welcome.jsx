@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Welcome({ socket }) {
@@ -31,18 +31,18 @@ export default function Welcome({ socket }) {
 	const joinRoom = () => {
 		let isValid = true;
 
-		if (!name) {
+		if (name) {
+			setNameError('');
+		} else {
 			setNameError('Please enter your name.');
 			isValid = false;
-		} else {
-			setNameError('');
 		}
 
-		if (!code) {
+		if (code) {
+			setCodeError('');
+		} else {
 			setCodeError('Please enter a room code.');
 			isValid = false;
-		} else {
-			setCodeError('');
 		}
 
 		if (!isValid) {
@@ -57,11 +57,11 @@ export default function Welcome({ socket }) {
 	const createRoom = () => {
 		let isValid = true;
 
-		if (!name) {
+		if (name) {
+			setNameError('');
+		} else {
 			setNameError('Please enter your name.');
 			isValid = false;
-		} else {
-			setNameError('');
 		}
 
 		setCodeError('');

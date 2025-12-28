@@ -1,6 +1,6 @@
 // Show clue to current player
-import { getActivePlayer, isActivePlayer } from './Helpers';
-import React, { useEffect, useState } from 'react';
+import { getActivePlayer, isActivePlayer } from './Helpers.js';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Step2({

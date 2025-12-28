@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import GameOver from './GameOver';
-import io from 'socket.io-client';
-import { isActivePlayer } from './Helpers';
-import Room from './Room';
-import Settings from './Settings';
-import Step1 from './Step1';
-import Step2 from './Step2';
-import Step3 from './Step3';
-import Step4 from './Step4';
-import Welcome from './Welcome';
+import { useEffect, useState } from 'react';
+import GameOver from './GameOver.jsx';
+import { io } from 'socket.io-client';
+import { isActivePlayer } from './Helpers.js';
+import Room from './Room.jsx';
+import Settings from './Settings.jsx';
+import Step1 from './Step1.jsx';
+import Step2 from './Step2.jsx';
+import Step3 from './Step3.jsx';
+import Step4 from './Step4.jsx';
+import Welcome from './Welcome.jsx';
 
 const socket = io(import.meta.env.VITE_API_URL, {
 	path: `${import.meta.env.VITE_API_PATH}/socket.io`,
@@ -30,7 +30,7 @@ export default function App() {
 	const removeToast = (toastId) => {
 		setToasts((oldToasts) => {
 			const newToasts = { ...oldToasts };
-			if (Object.prototype.hasOwnProperty.call(newToasts, toastId)) {
+			if (Object.hasOwn(newToasts, toastId)) {
 				delete newToasts[toastId];
 			}
 			return newToasts;
@@ -186,7 +186,7 @@ export default function App() {
 		);
 	}
 
-	let screenComponent = null;
+	let screenComponent;
 	if (isSettingsVisible) {
 		screenComponent = (
 			<Settings
@@ -237,7 +237,16 @@ export default function App() {
 			<>
 				<header id="header">
 					<div aria-label="Room code" id="room-code">{currentRoom.code}</div>
-					<button className="icon" id="settings-button" onClick={(e) => { setIsSettingsVisible(e); }} type="button">Settings</button>
+					<button
+						className="icon"
+						id="settings-button"
+						onClick={(e) => {
+							setIsSettingsVisible(e);
+						}}
+						type="button"
+					>
+						Settings
+					</button>
 				</header>
 				<Component
 					categories={categories}

@@ -1,6 +1,6 @@
 // Show timer
-import { getActivePlayer, isActivePlayer } from './Helpers';
-import React, { useEffect, useState } from 'react';
+import { getActivePlayer, isActivePlayer } from './Helpers.js';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Step3({
@@ -10,7 +10,7 @@ export default function Step3({
 }) {
 	const now = () => new Date().getTime();
 	const [loading, setLoading] = useState(false);
-	const [deadline] = useState(currentRoom.deadline);
+	const [deadline] = useState(currentRoom.deadline); // eslint-disable-line react/hook-use-state
 	const calculateRemainingSeconds = () => Math.round((deadline - now()) / 1000);
 	const [remainingSeconds, setRemainingSeconds] = useState(calculateRemainingSeconds());
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
@@ -18,7 +18,7 @@ export default function Step3({
 	const onNext = (e) => {
 		setLoading(true);
 		if (isActive) {
-			socket.emit('COMPLETE_CLUE', { roomId: currentRoom.id, wasCorrect: !!e });
+			socket.emit('COMPLETE_CLUE', { roomId: currentRoom.id, wasCorrect: Boolean(e) });
 		}
 	};
 

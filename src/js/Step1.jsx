@@ -1,8 +1,8 @@
 // Select category
-import { getActivePlayer, isActivePlayer } from './Helpers';
-import React, { useState } from 'react';
-import GameOver from './GameOver';
+import { getActivePlayer, isActivePlayer } from './Helpers.js';
+import GameOver from './GameOver.jsx';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 export default function Step1({
 	categories,

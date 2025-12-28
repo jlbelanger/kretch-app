@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Modal from './Components/Modal';
+import Modal from './Components/Modal.jsx';
 import PropTypes from 'prop-types';
 
 export default function Settings({
@@ -15,8 +15,8 @@ export default function Settings({
 }) {
 	const [loading, setLoading] = useState(false);
 	const [isDisabled, setIsDisabled] = useState(false);
-	const [playerCategories, setCategories] = useState(settings.categories);
-	const [playerMethods, setMethods] = useState(settings.methods);
+	const [playerCategories, setPlayerCategories] = useState(settings.categories);
+	const [playerMethods, setPlayerMethods] = useState(settings.methods);
 	const [maxYear, setMaxYear] = useState(settings.maxYear);
 	const [minYear, setMinYear] = useState(settings.minYear);
 	const [categoriesError, setCategoriesError] = useState('');
@@ -26,21 +26,21 @@ export default function Settings({
 
 	const onChangeCategory = (e) => {
 		if (e.target.checked) {
-			setCategories([...playerCategories, e.target.value]);
+			setPlayerCategories([...playerCategories, e.target.value]);
 		} else {
 			const newCategories = [...playerCategories];
 			newCategories.splice(playerCategories.indexOf(e.target.value), 1);
-			setCategories(newCategories);
+			setPlayerCategories(newCategories);
 		}
 	};
 
 	const onChangeMethod = (e) => {
 		if (e.target.checked) {
-			setMethods([...playerMethods, e.target.value]);
+			setPlayerMethods([...playerMethods, e.target.value]);
 		} else {
 			const newMethods = [...playerMethods];
 			newMethods.splice(playerMethods.indexOf(e.target.value), 1);
-			setMethods(newMethods);
+			setPlayerMethods(newMethods);
 		}
 	};
 
@@ -283,7 +283,7 @@ Settings.propTypes = {
 	currentRoom: PropTypes.object.isRequired,
 	event: PropTypes.object.isRequired,
 	methods: PropTypes.array.isRequired,
-	settings: PropTypes.object.isRequired,
 	setIsSettingsVisible: PropTypes.func.isRequired,
+	settings: PropTypes.object.isRequired,
 	socket: PropTypes.object.isRequired,
 };

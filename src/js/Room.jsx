@@ -1,6 +1,6 @@
-import { getActivePlayer, isActivePlayer } from './Helpers';
-import React, { useState } from 'react';
+import { getActivePlayer, isActivePlayer } from './Helpers.js';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 export default function Room({
 	addToast,
@@ -101,8 +101,8 @@ export default function Room({
 					</div>
 
 					<div className="flex" style={{ justifyContent: 'space-between' }}>
-						<span aria-live="polite" className="field-error" style={{ textAlign: 'left' }} role="alert">{maxSkipsError}</span>
-						<span aria-live="polite" className="field-error" style={{ textAlign: 'right' }} role="alert">{maxMinutesError}</span>
+						<span aria-live="polite" className="field-error" role="alert" style={{ textAlign: 'left' }}>{maxSkipsError}</span>
+						<span aria-live="polite" className="field-error" role="alert" style={{ textAlign: 'right' }}>{maxMinutesError}</span>
 					</div>
 				</>
 			) : (

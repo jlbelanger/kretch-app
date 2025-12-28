@@ -1,7 +1,7 @@
 // Reveal answer to all players
-import { getActivePlayer, isActivePlayer } from './Helpers';
-import React, { useState } from 'react';
+import { getActivePlayer, isActivePlayer } from './Helpers.js';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 export default function Step4({
 	currentPlayer,
@@ -11,7 +11,7 @@ export default function Step4({
 	const [loading, setLoading] = useState(false);
 	const activePlayer = getActivePlayer(currentRoom);
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
-	const [comment] = useState(() => {
+	const [comment] = useState(() => { // eslint-disable-line react/hook-use-state
 		let comments;
 		if (currentRoom.wasCorrect) {
 			comments = [
