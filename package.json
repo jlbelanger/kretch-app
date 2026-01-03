@@ -14,11 +14,11 @@
 		"url": "https://github.com/jlbelanger/kretch-app.git"
 	},
 	"scripts": {
-		"start": "node_modules/.bin/update-browserslist-db && vite",
+		"start": "npx update-browserslist-db && vite",
 		"build": "vite build",
-		"lint": "yarn lint:css && yarn lint:js",
-		"lint:css": "node_modules/.bin/stylelint 'src/css/**/*.css'",
-		"lint:js": "node_modules/.bin/eslint ."
+		"lint": "npm run lint:css && npm run lint:js",
+		"lint:css": "npx stylelint 'src/css/**/*.css'",
+		"lint:js": "npx eslint ."
 	},
 	"dependencies": {
 		"@vitejs/plugin-react": "^5.1.2",

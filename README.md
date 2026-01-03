@@ -7,7 +7,7 @@ Kretch is a multi-player movie/TV/song/people/meme guessing game. [View the site
 ### Requirements
 
 - [Git](https://git-scm.com/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install)
+- [Node](https://nodejs.org/)
 
 ### Setup
 
@@ -23,13 +23,13 @@ cp .env.example .env
 cp .env.example .env.production
 
 # Install dependencies
-yarn install
+npm install
 ```
 
 ### Run
 
 ``` bash
-yarn start
+npm start
 ```
 
 Your browser should automatically open http://localhost:3000/
@@ -37,7 +37,7 @@ Your browser should automatically open http://localhost:3000/
 ### Lint
 
 ``` bash
-yarn lint
+npm run lint
 ```
 
 ### Generate splash screens
