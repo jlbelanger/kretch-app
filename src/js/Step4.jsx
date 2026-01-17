@@ -3,26 +3,16 @@ import { getActivePlayer, isActivePlayer } from './Helpers.js';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export default function Step4({
-	currentPlayer,
-	currentRoom,
-	socket,
-}) {
+export default function Step4({ currentPlayer, currentRoom, socket }) {
 	const [loading, setLoading] = useState(false);
 	const activePlayer = getActivePlayer(currentRoom);
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
 	const [comment] = useState(() => { // eslint-disable-line react/hook-use-state
 		let comments;
 		if (currentRoom.wasCorrect) {
-			comments = [
-				'Nice one!',
-				'Awesome!',
-				'Good job, team!',
-			];
+			comments = ['Nice one!', 'Awesome!', 'Good job, team!'];
 		} else {
-			comments = [
-				'Well, that stinks.',
-			];
+			comments = ['Well, that stinks.'];
 			if (isActive) {
 				comments.push('Don’t quit your day job.');
 				comments.push('Those guys suck.');
@@ -53,7 +43,9 @@ export default function Step4({
 
 	if (loading) {
 		return (
-			<div className="spinner" role="status">Loading...</div>
+			<div className="spinner" role="status">
+				Loading...
+			</div>
 		);
 	}
 
@@ -61,17 +53,15 @@ export default function Step4({
 		<section>
 			<h1 className="text">{`${comment} The answer was:`}</h1>
 
-			<p className="highlight">{currentClue.name}</p>
+			<p className="highlight">
+				{currentClue.name}
+			</p>
 
-			{currentClue.img ? (
-				<p>
-					<img alt="" height={currentClue.height} src={currentClue.img} width={currentClue.width} />
-				</p>
-			) : (
-				<p>
-					{`That’s a ${currentCategory.name}${info}, in case you didn’t know.`}
-				</p>
-			)}
+			<p>
+				{currentClue.img
+					? <img alt="" height={currentClue.height} src={currentClue.img} width={currentClue.width} />
+					: `That’s a ${currentCategory.name}${info}, in case you didn’t know.`}
+			</p>
 
 			{isActive ? (
 				<p style={{ lineHeight: 1.4 }}>

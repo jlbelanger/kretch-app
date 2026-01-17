@@ -3,11 +3,7 @@ import { getActivePlayer, isActivePlayer } from './Helpers.js';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Step3({
-	currentPlayer,
-	currentRoom,
-	socket,
-}) {
+export default function Step3({ currentPlayer, currentRoom, socket }) {
 	const now = () => new Date().getTime();
 	const [loading, setLoading] = useState(false);
 	const [deadline] = useState(currentRoom.deadline); // eslint-disable-line react/hook-use-state
@@ -61,7 +57,9 @@ export default function Step3({
 
 	if (loading) {
 		return (
-			<div className="spinner" role="status">Loading...</div>
+			<div className="spinner" role="status">
+				Loading...
+			</div>
 		);
 	}
 
@@ -78,7 +76,9 @@ export default function Step3({
 						{`${currentPlayer.name}, ${currentRoom.currentMethod.name} the ${currentRoom.currentCategory.name}:`}
 					</h1>
 
-					<p className="highlight">{currentRoom.currentClue.name}</p>
+					<p className="highlight">
+						{currentRoom.currentClue.name}
+					</p>
 				</>
 			) : (
 				<p>
@@ -90,11 +90,11 @@ export default function Step3({
 				<span aria-hidden="true">{formatTime(remainingSeconds)}</span>
 			</p>
 
-			{isActive && (
+			{isActive ? (
 				<p>
 					<button onClick={onNext} type="button">They got it!</button>
 				</p>
-			)}
+			) : null}
 		</section>
 	);
 }

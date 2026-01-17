@@ -21,8 +21,8 @@
 	--indigo-lighter: #7986cb; /* 300 */
 	--indigo-lightish: hsl(from var(--indigo-light) h s calc(l * 1.03));
 	--indigo-mediumish: hsl(from var(--indigo-medium) h s calc(l * 1.12));
-	--indigo-darkish: hsl(from var(--indigo) h s calc(l * .85));
-	--indigo-darker: hsl(from var(--indigo-dark) h s calc(l * .8));
+	--indigo-darkish: hsl(from var(--indigo) h s calc(l * 0.85));
+	--indigo-darker: hsl(from var(--indigo-dark) h s calc(l * 0.8));
 	--indigo-gray: #565971;
 	--gray: #ccc;
 	--off-white: #e8eaf6;

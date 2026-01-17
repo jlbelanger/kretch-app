@@ -1,12 +1,7 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Modal({
-	cancelable = true,
-	children = null,
-	event,
-	onClickCancel = null,
-}) {
+export default function Modal({ cancelable = true, children = null, event, onClickCancel = null }) {
 	const dialogRef = useRef(null);
 
 	const onKeydown = (e) => {

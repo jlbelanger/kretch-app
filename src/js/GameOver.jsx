@@ -1,12 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export default function GameOver({
-	currentPlayer,
-	currentRoom,
-	setScreen,
-	socket,
-}) {
+export default function GameOver({ currentPlayer, currentRoom, setScreen, socket }) {
 	const [loading, setLoading] = useState(false);
 
 	const startGame = () => {
@@ -17,7 +12,9 @@ export default function GameOver({
 
 	if (loading) {
 		return (
-			<div className="spinner" role="status">Loading...</div>
+			<div className="spinner" role="status">
+				Loading...
+			</div>
 		);
 	}
 

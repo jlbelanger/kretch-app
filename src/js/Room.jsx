@@ -2,13 +2,7 @@ import { getActivePlayer, isActivePlayer } from './Helpers.js';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export default function Room({
-	addToast,
-	currentPlayer,
-	currentRoom,
-	setScreen,
-	socket,
-}) {
+export default function Room({ addToast, currentPlayer, currentRoom, setScreen, socket }) {
 	const [loading, setLoading] = useState(false);
 	const [maxSkips, setMaxSkips] = useState(3);
 	const [maxMinutes, setMaxMinutes] = useState(2);
@@ -52,7 +46,9 @@ export default function Room({
 
 	if (loading) {
 		return (
-			<div className="spinner" role="status">Loading...</div>
+			<div className="spinner" role="status">
+				Loading...
+			</div>
 		);
 	}
 
@@ -63,9 +59,7 @@ export default function Room({
 			<h1>{`Room: ${currentRoom.code}`}</h1>
 
 			<ul aria-label="Players" id="players">
-				{currentRoom.players.map((player) => (
-					<li className="player" key={player.id}>{player.name}</li>
-				))}
+				{currentRoom.players.map((player) => <li className="player" key={player.id}>{player.name}</li>)}
 			</ul>
 
 			{isActive ? (
@@ -101,19 +95,17 @@ export default function Room({
 					</div>
 
 					<div className="flex" style={{ justifyContent: 'space-between' }}>
-						<span aria-live="polite" className="field-error" role="alert" style={{ textAlign: 'left' }}>{maxSkipsError}</span>
-						<span aria-live="polite" className="field-error" role="alert" style={{ textAlign: 'right' }}>{maxMinutesError}</span>
+						<span aria-live="polite" className="field-error" role="alert" style={{ textAlign: 'left' }}>
+							{maxSkipsError}
+						</span>
+						<span aria-live="polite" className="field-error" role="alert" style={{ textAlign: 'right' }}>
+							{maxMinutesError}
+						</span>
 					</div>
 				</>
-			) : (
-				<p className="wait">
-					{`Waiting for ${getActivePlayer(currentRoom).name} to start the game.`}
-				</p>
-			)}
+			) : <p className="wait">{`Waiting for ${getActivePlayer(currentRoom).name} to start the game.`}</p>}
 
-			<p>
-				{isActive && <button type="submit">Start game</button>}
-			</p>
+			<p>{isActive ? <button type="submit">Start game</button> : null}</p>
 		</form>
 	);
 }

@@ -4,13 +4,7 @@ import GameOver from './GameOver.jsx';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export default function Step1({
-	categories,
-	currentPlayer,
-	currentRoom,
-	setScreen,
-	socket,
-}) {
+export default function Step1({ categories, currentPlayer, currentRoom, setScreen, socket }) {
 	const [loading, setLoading] = useState(false);
 
 	if (!categories) {
@@ -18,19 +12,10 @@ export default function Step1({
 		return null;
 	}
 
-	const categoryList = categories.filter((category) => (
-		category.count > currentRoom.categoryCount[category.slug]
-	));
+	const categoryList = categories.filter((category) => category.count > currentRoom.categoryCount[category.slug]);
 
 	if (categoryList.length <= 0) {
-		return (
-			<GameOver
-				currentPlayer={currentPlayer}
-				currentRoom={currentRoom}
-				setScreen={setScreen}
-				socket={socket}
-			/>
-		);
+		return <GameOver currentPlayer={currentPlayer} currentRoom={currentRoom} setScreen={setScreen} socket={socket} />;
 	}
 
 	const isActive = isActivePlayer(currentRoom, currentPlayer);
@@ -43,7 +28,9 @@ export default function Step1({
 
 	if (loading) {
 		return (
-			<div className="spinner" role="status">Loading...</div>
+			<div className="spinner" role="status">
+				Loading...
+			</div>
 		);
 	}
 

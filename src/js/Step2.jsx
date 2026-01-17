@@ -3,12 +3,7 @@ import { getActivePlayer, isActivePlayer } from './Helpers.js';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Step2({
-	currentCategorySlug = '',
-	currentPlayer,
-	currentRoom,
-	socket,
-}) {
+export default function Step2({ currentCategorySlug = '', currentPlayer, currentRoom, socket }) {
 	const [loading, setLoading] = useState(false);
 	const [loadingClue, setLoadingClue] = useState(!currentRoom.currentClue);
 	const [numSkips, setNumSkips] = useState(0);
@@ -53,7 +48,9 @@ export default function Step2({
 
 	if (loading) {
 		return (
-			<div className="spinner" role="status">Loading...</div>
+			<div className="spinner" role="status">
+				Loading...
+			</div>
 		);
 	}
 
@@ -78,17 +75,24 @@ export default function Step2({
 
 				<h1 className="text">{`${category.pre[method.slug]} the ${category.name}:`}</h1>
 
-				<p className="highlight" id="clue">{loadingClue ? '...' : clue.name}</p>
+				<p className="highlight" id="clue">
+					{loadingClue ? '...' : clue.name}
+				</p>
 
-				{clue.img && !loadingClue ? (
-					<p>
-						<img alt="" height={clue.height} src={clue.img} width={clue.width} />
-					</p>
-				) : null}
+				{clue.img && !loadingClue
+					? <p><img alt="" height={clue.height} src={clue.img} width={clue.width} /></p>
+					: null}
 
 				<p>
-					<button disabled={isOkDisabled} onClick={onNext} type="button">Okay, let&rsquo;s do this</button>
-					<button className="button--secondary" disabled={isSkipDisabled || numSkipsRemaining <= 0} onClick={onSkip} type="button">
+					<button disabled={isOkDisabled} onClick={onNext} type="button">
+						Okay, let&rsquo;s do this
+					</button>
+					<button
+						className="button--secondary"
+						disabled={isSkipDisabled || numSkipsRemaining <= 0}
+						onClick={onSkip}
+						type="button"
+					>
 						{numSkipsRemaining <= 3 ? `Skip (${numSkipsRemaining} remaining)` : 'Skip'}
 					</button>
 				</p>

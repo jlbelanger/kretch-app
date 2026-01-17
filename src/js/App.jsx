@@ -182,7 +182,9 @@ export default function App() {
 
 	if (!socket || !isConnected) {
 		return (
-			<div className="spinner" role="status">Connecting...</div>
+			<div className="spinner" role="status">
+				Connecting...
+			</div>
 		);
 	}
 
@@ -202,41 +204,21 @@ export default function App() {
 			/>
 		);
 	} else if (screen === 'welcome') {
-		screenComponent = (
-			<Welcome socket={socket} />
-		);
+		screenComponent = <Welcome socket={socket} />;
 	} else if (screen === 'room') {
-		screenComponent = (
-			<Room
-				addToast={addToast}
-				currentPlayer={currentPlayer}
-				currentRoom={currentRoom}
-				setScreen={setScreen}
-				socket={socket}
-			/>
-		);
+		screenComponent = <Room addToast={addToast} currentPlayer={currentPlayer} currentRoom={currentRoom} setScreen={setScreen} socket={socket} />;
 	} else if (screen === 'game-over') {
-		screenComponent = (
-			<GameOver
-				currentPlayer={currentPlayer}
-				currentRoom={currentRoom}
-				setScreen={setScreen}
-				socket={socket}
-			/>
-		);
+		screenComponent = <GameOver currentPlayer={currentPlayer} currentRoom={currentRoom} setScreen={setScreen} socket={socket} />;
 	} else {
-		const components = [
-			Step1,
-			Step2,
-			Step3,
-			Step4,
-		];
+		const components = [Step1, Step2, Step3, Step4];
 		const Component = components[currentRoom.step - 1];
 
 		screenComponent = (
 			<>
 				<header id="header">
-					<div aria-label="Room code" id="room-code">{currentRoom.code}</div>
+					<div aria-label="Room code" id="room-code">
+						{currentRoom.code}
+					</div>
 					<button
 						className="icon"
 						id="settings-button"
